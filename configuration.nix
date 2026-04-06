@@ -35,6 +35,10 @@
 
   services.xserver.xkb.layout = "us";
 
+  fonts.packages = with pkgs; [
+    nerd-fonts.jetbrains-mono
+  ];
+
   fileSystems."/home/lucas/Discos/HD-A" = {
     device = "/dev/disk/by-uuid/ea3f3a7b-cbea-4e99-ab20-8a089c50a108";
     fsType = "ext4";
