@@ -1,0 +1,15 @@
+show=drun
+location=center
+width=720
+height=480
+prompt=Buscar
+allow_images=true
+image_size=20
+columns=1
+lines=10
+layer=overlay
+term=kitty
+sort_order=alphabetical
+insensitive=true
+hide_scroll=true
+normal_window=false
