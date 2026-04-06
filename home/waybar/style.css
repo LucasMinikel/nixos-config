@@ -41,7 +41,6 @@ window#waybar {
 #clock,
 #cpu,
 #memory,
-#network,
 #pulseaudio,
 #tray {
     padding: 0 8px;
@@ -60,10 +59,6 @@ window#waybar {
 
 #memory {
     color: #9ece6a;
-}
-
-#network {
-    color: #7aa2f7;
 }
 
 #pulseaudio {

@@ -16,7 +16,6 @@
     "modules-right": [
         "cpu",
         "memory",
-        "network",
         "pulseaudio",
         "tray"
     ],
@@ -42,12 +41,6 @@
     "memory": {
         "format": "󰍛 {percentage}%",
         "interval": 2
-    },
-    "network": {
-        "format-wifi": "󰖩 {signalStrength}%",
-        "format-ethernet": "󰌐",
-        "format-disconnected": "󰌙",
-        "tooltip-format": "{ifname}"
     },
     "pulseaudio": {
         "format": "{icon} {volume}%",
