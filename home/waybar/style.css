@@ -40,6 +40,7 @@ window#waybar {
 #window,
 #clock,
 #cpu,
+#custom-gpu,
 #memory,
 #pulseaudio,
 #tray {
@@ -55,6 +56,10 @@ window#waybar {
 
 #cpu {
     color: #7dcfff;
+}
+
+#custom-gpu {
+    color: #e0af68;
 }
 
 #memory {

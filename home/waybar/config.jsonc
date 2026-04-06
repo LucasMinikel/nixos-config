@@ -15,6 +15,7 @@
     ],
     "modules-right": [
         "cpu",
+        "custom/gpu",
         "memory",
         "pulseaudio",
         "tray"
@@ -37,6 +38,11 @@
     "cpu": {
         "format": "󰻠 {usage}%",
         "interval": 2
+    },
+    "custom/gpu": {
+        "exec": "~/.config/waybar/scripts/gpu-usage.sh",
+        "interval": 2,
+        "tooltip": false
     },
     "memory": {
         "format": "󰍛 {percentage}%",
