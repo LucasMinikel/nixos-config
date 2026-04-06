@@ -6,6 +6,7 @@
   home.stateVersion = "25.11";
 
   home.file.".config/hypr/conf.d/keybinds.conf".source = ./home/hypr/conf.d/keybinds.conf;
+  home.file.".config/hypr/conf.d/layout.conf".source = ./home/hypr/conf.d/layout.conf;
   home.file.".config/waybar/config".source = ./home/waybar/config.jsonc;
   home.file.".config/waybar/style.css".source = ./home/waybar/style.css;
   home.file.".config/wofi/config".source = ./home/wofi/config;
@@ -56,15 +57,19 @@
 
   home.activation.ensureHyprKeybindSource = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
     target="$HOME/.config/hypr/hyprland.conf"
-    source_line='source = ~/.config/hypr/conf.d/keybinds.conf'
+    keybinds_line='source = ~/.config/hypr/conf.d/keybinds.conf'
+    layout_line='source = ~/.config/hypr/conf.d/layout.conf'
 
     if [ -f "$target" ]; then
-      if ! grep -Fxq "$source_line" "$target"; then
-        echo "$source_line" >> "$target"
+      if ! grep -Fxq "$keybinds_line" "$target"; then
+        echo "$keybinds_line" >> "$target"
+      fi
+      if ! grep -Fxq "$layout_line" "$target"; then
+        echo "$layout_line" >> "$target"
       fi
     else
       mkdir -p "$HOME/.config/hypr"
-      printf '%s\n' "$source_line" > "$target"
+      printf '%s\n%s\n' "$keybinds_line" "$layout_line" > "$target"
     fi
   '';
 

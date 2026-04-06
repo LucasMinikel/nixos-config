@@ -1,11 +1,11 @@
 {
     "layer": "top",
     "position": "top",
-    "height": 34,
-    "spacing": 8,
-    "margin-top": 8,
-    "margin-left": 10,
-    "margin-right": 10,
+    "height": 35,
+    "spacing": 6,
+    "margin-top": 4,
+    "margin-left": 6,
+    "margin-right": 6,
     "modules-left": [
         "hyprland/workspaces",
         "hyprland/window"
@@ -36,32 +36,32 @@
         "tooltip-format": "{:%A, %d %B %Y}"
     },
     "cpu": {
-        "format": "  {usage}%",
+        "format": "󰻠 {usage}%",
         "interval": 2
     },
     "memory": {
-        "format": "  {percentage}%",
+        "format": "󰍛 {percentage}%",
         "interval": 2
     },
     "network": {
-        "format-wifi": "  {signalStrength}%",
-        "format-ethernet": "󰈀  conectado",
-        "format-disconnected": "󰖪  offline",
+        "format-wifi": "󰖩 {signalStrength}%",
+        "format-ethernet": "󰌐",
+        "format-disconnected": "󰌙",
         "tooltip-format": "{ifname}"
     },
     "pulseaudio": {
-        "format": "{icon}  {volume}%",
-        "format-muted": "  mute",
+        "format": "{icon} {volume}%",
+        "format-muted": "󰝟 0%",
         "format-icons": {
             "default": [
-                "",
-                "",
-                ""
+                "󰕿",
+                "󰖀",
+                "󰕾"
             ]
         },
         "on-click": "pavucontrol"
     },
     "tray": {
-        "spacing": 8
+        "spacing": 6
     }
 }

@@ -16,15 +16,15 @@ window#waybar {
     background: rgba(26, 27, 38, 0.92);
     border: 1px solid rgba(65, 72, 104, 0.8);
     border-radius: 12px;
-    padding: 0 10px;
+    padding: 0 8px;
 }
 
 #workspaces button {
     color: #7aa2f7;
     background: transparent;
     border-radius: 8px;
-    margin: 6px 3px;
-    padding: 2px 9px;
+    margin: 4px 2px;
+    padding: 1px 8px;
 }
 
 #workspaces button.active {
@@ -44,8 +44,8 @@ window#waybar {
 #network,
 #pulseaudio,
 #tray {
-    padding: 0 10px;
-    margin: 6px 0;
+    padding: 0 8px;
+    margin: 4px 0;
     color: #c0caf5;
 }
 

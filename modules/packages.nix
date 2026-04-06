@@ -16,5 +16,6 @@
     networkmanagerapplet
     pavucontrol
     firefox
+    nerd-fonts.jetbrains-mono
   ];
 }
