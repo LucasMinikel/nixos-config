@@ -8,6 +8,7 @@
     wget
     git
     kitty
+    kdePackages.dolphin
     vscode
     waybar
     wofi

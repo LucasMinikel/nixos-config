@@ -11,7 +11,7 @@
 
   boot.loader.grub.enable = true;
   boot.loader.grub.device = "/dev/nvme0n1";
-  boot.loader.grub.useOSProber = true;
+  boot.loader.grub.useOSProber = false;
 
   networking.hostName = "nixos";
   networking.networkmanager.enable = true;
@@ -34,6 +34,18 @@
   };
 
   services.xserver.xkb.layout = "us";
+
+  fileSystems."/home/lucas/Discos/HD-A" = {
+    device = "/dev/disk/by-uuid/ea3f3a7b-cbea-4e99-ab20-8a089c50a108";
+    fsType = "ext4";
+    options = [ "nofail" "x-systemd.automount" "x-systemd.idle-timeout=600" "x-gvfs-show" ];
+  };
+
+  fileSystems."/home/lucas/Discos/HD-B" = {
+    device = "/dev/disk/by-uuid/debba3c8-86c5-42f0-8ae7-544e675b40c4";
+    fsType = "ext4";
+    options = [ "nofail" "x-systemd.automount" "x-systemd.idle-timeout=600" "x-gvfs-show" ];
+  };
 
   users.users.lucas = {
     isNormalUser = true;
