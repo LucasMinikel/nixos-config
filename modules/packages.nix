@@ -7,6 +7,7 @@
     vim
     wget
     git
+    btop
     kitty
     kdePackages.dolphin
     vscode
