@@ -58,6 +58,10 @@
     packages = with pkgs; [];
   };
 
+  programs.zsh.enable = true;
+
+  users.users.lucas.shell = pkgs.zsh;
+
   programs.hyprland.enable = true;
   programs.hyprland.xwayland.enable = true;
 

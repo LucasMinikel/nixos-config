@@ -15,12 +15,13 @@
   };
   home.file.".config/wofi/config".source = ./home/wofi/config;
   home.file.".config/wofi/style.css".source = ./home/wofi/style.css;
+  home.file.".config/kitty/kitty.conf".source = ./home/kitty/kitty.conf;
 
   gtk = {
     enable = true;
     theme = {
-      name = "Adwaita-dark";
-      package = pkgs.gnome-themes-extra;
+      name = "Tokyonight-Dark-BL";
+      package = pkgs.tokyonight-gtk-theme;
     };
     iconTheme = {
       name = "Papirus-Dark";
@@ -36,7 +37,7 @@
   };
 
   home.sessionVariables = {
-    GTK_THEME = "Adwaita:dark";
+    GTK_THEME = "Tokyonight-Dark-BL";
   };
 
   xdg.mimeApps = {
@@ -85,6 +86,26 @@
       printf '%s\n%s\n' "$keybinds_line" "$layout_line" > "$target"
     fi
   '';
+
+  programs.zsh = {
+    enable = true;
+    enableCompletion = true;
+    autosuggestion.enable = true;
+    syntaxHighlighting.enable = true;
+    history = {
+      size = 10000;
+      save = 10000;
+      ignoreDups = true;
+      share = true;
+    };
+    shellAliases = {
+      ll   = "ls -la --color=auto";
+      la   = "ls -A --color=auto";
+      ls   = "ls --color=auto";
+      grep = "grep --color=auto";
+      update = "sudo nixos-rebuild switch --flake ~/nixos-config#nixos";
+    };
+  };
 
   programs.home-manager.enable = true;
 }
