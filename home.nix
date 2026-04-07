@@ -61,8 +61,8 @@
 
   home.activation.ensureHyprKeybindSource = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
     target="$HOME/.config/hypr/hyprland.conf"
-    keybinds_line='source = ~/.config/hypr/conf.d/keybinds.conf'
-    layout_line='source = ~/.config/hypr/conf.d/layout.conf'
+    keybinds_line="source = $HOME/.config/hypr/conf.d/keybinds.conf"
+    layout_line="source = $HOME/.config/hypr/conf.d/layout.conf"
     rule1_v1='windowrule = suppressevent maximize, class:.*'
     rule1_v2='windowrulev2 = suppressevent maximize, class:.*'
     rule2_v1='windowrule = nofocus,class:^$,title:^$,xwayland:1,floating:1,fullscreen:0,pinned:0'
@@ -75,6 +75,8 @@
       sed -i "\\|^$rule2_v1$|d" "$target"
       sed -i "\\|^$rule2_v1_spaced$|d" "$target"
       sed -i "\\|^$rule2_v2$|d" "$target"
+      # corrigir linhas antigas com ~ para $HOME (bug Hyprland 0.54+)
+      sed -i "s|source = ~/\.config/hypr/|source = $HOME/.config/hypr/|g" "$target"
       if ! grep -Fxq "$keybinds_line" "$target"; then
         echo "$keybinds_line" >> "$target"
       fi
