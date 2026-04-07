@@ -7,6 +7,11 @@
 
   home.file.".config/hypr/conf.d/keybinds.conf".source = ./home/hypr/conf.d/keybinds.conf;
   home.file.".config/hypr/conf.d/layout.conf".source = ./home/hypr/conf.d/layout.conf;
+  home.file.".config/hypr/conf.d/autostart.conf".source = ./home/hypr/conf.d/autostart.conf;
+  home.file.".config/hypr/scripts/wallpaper.sh" = {
+    source = ./home/hypr/scripts/wallpaper.sh;
+    executable = true;
+  };
   home.file.".config/waybar/config".source = ./home/waybar/config.jsonc;
   home.file.".config/waybar/style.css".source = ./home/waybar/style.css;
   home.file.".config/waybar/scripts/gpu-usage.sh" = {
@@ -78,6 +83,7 @@
     target="$HOME/.config/hypr/hyprland.conf"
     keybinds_line="source = $HOME/.config/hypr/conf.d/keybinds.conf"
     layout_line="source = $HOME/.config/hypr/conf.d/layout.conf"
+    autostart_line="source = $HOME/.config/hypr/conf.d/autostart.conf"
     rule1_v1='windowrule = suppressevent maximize, class:.*'
     rule1_v2='windowrulev2 = suppressevent maximize, class:.*'
     rule2_v1='windowrule = nofocus,class:^$,title:^$,xwayland:1,floating:1,fullscreen:0,pinned:0'
@@ -97,6 +103,9 @@
       fi
       if ! grep -Fxq "$layout_line" "$target"; then
         echo "$layout_line" >> "$target"
+      fi
+      if ! grep -Fxq "$autostart_line" "$target"; then
+        echo "$autostart_line" >> "$target"
       fi
     else
       mkdir -p "$HOME/.config/hypr"
