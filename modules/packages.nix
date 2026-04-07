@@ -9,7 +9,7 @@
     git
     btop
     kitty
-    kdePackages.dolphin
+    thunar
     vscode
     waybar
     wofi

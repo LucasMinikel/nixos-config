@@ -35,17 +35,16 @@
     gtk4.theme = config.gtk.theme;
   };
 
-  qt = {
-    enable = true;
-    platformTheme.name = "gtk";
-    style = {
-      name = "adwaita-dark";
-      package = pkgs.adwaita-qt;
-    };
-  };
-
   home.sessionVariables = {
     GTK_THEME = "Adwaita:dark";
+  };
+
+  xdg.mimeApps = {
+    enable = true;
+    defaultApplications = {
+      "inode/directory" = [ "thunar.desktop" ];
+      "application/x-gnome-saved-search" = [ "thunar.desktop" ];
+    };
   };
 
   programs.firefox = {
