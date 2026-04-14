@@ -22,6 +22,10 @@
   home.file.".config/wofi/style.css".source = ./home/wofi/style.css;
   home.file.".config/kitty/kitty.conf".source = ./home/kitty/kitty.conf;
 
+  # Expor tema GTK em ~/.themes para apps como Thunar encontrarem
+  home.file.".themes/Tokyonight-Dark".source =
+    "${pkgs.tokyonight-gtk-theme}/share/themes/Tokyonight-Dark";
+
   gtk = {
     enable = true;
     theme = {
