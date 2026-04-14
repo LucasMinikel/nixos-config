@@ -18,6 +18,7 @@
     networkmanagerapplet
     pavucontrol
     firefox
+    qbittorrent
     nerd-fonts.jetbrains-mono
   ];
 }

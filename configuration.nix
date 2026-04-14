@@ -68,5 +68,11 @@
   hardware.bluetooth.enable = true;
   services.blueman.enable = true;
 
+  services.plex = {
+    enable = true;
+    openFirewall = true;
+    user = "lucas";
+  };
+
   system.stateVersion = "25.11";
 }
