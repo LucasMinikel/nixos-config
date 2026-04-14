@@ -25,7 +25,7 @@
   gtk = {
     enable = true;
     theme = {
-      name = "Tokyonight-Dark-BL";
+      name = "Tokyonight-Dark";
       package = pkgs.tokyonight-gtk-theme;
     };
     iconTheme = {
@@ -55,9 +55,10 @@
   };
 
   home.sessionVariables = {
-    GTK_THEME = "Tokyonight-Dark-BL";
+    GTK_THEME = "Tokyonight-Dark";
     XCURSOR_THEME = "Bibata-Modern-Classic";
     XCURSOR_SIZE = "24";
+    XDG_DATA_DIRS = "${pkgs.tokyonight-gtk-theme}/share:$XDG_DATA_DIRS";
   };
 
   xdg.mimeApps = {
