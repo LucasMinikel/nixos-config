@@ -131,6 +131,21 @@
       grep = "grep --color=auto";
       update = "sudo nixos-rebuild switch --flake ~/nixos-config#nixos";
     };
+    initContent = ''
+      autoload -Uz colors vcs_info
+      colors
+
+      zstyle ':vcs_info:*' enable git
+      zstyle ':vcs_info:git:*' formats '%F{141}(%b)%f'
+      zstyle ':vcs_info:git:*' actionformats '%F{203}(%b|%a)%f'
+
+      setopt prompt_subst
+      precmd() { vcs_info }
+
+      # Tokyo Night prompt: user@host + path atual + branch git
+      PROMPT='%F{110}%n@%m%f %F{75}%~%f ''${vcs_info_msg_0_} %# '
+      RPROMPT='%F{67}%*%f'
+    '';
   };
 
   programs.home-manager.enable = true;

@@ -10,7 +10,7 @@
     btop
     kitty
     thunar
-    swww
+    awww
     vscode
     waybar
     wofi
