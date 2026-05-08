@@ -18,7 +18,10 @@
     networkmanagerapplet
     pavucontrol
     firefox
+    google-chrome
     qbittorrent
+    nodejs
+    docker-compose
     nerd-fonts.jetbrains-mono
   ];
 }

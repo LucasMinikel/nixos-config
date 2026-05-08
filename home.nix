@@ -140,6 +140,7 @@
       ls   = "ls --color=auto";
       grep = "grep --color=auto";
       update = "sudo nixos-rebuild switch --flake ~/nixos-config#nixos";
+      sail = "vendor/bin/sail";
     };
     initContent = ''
       autoload -Uz colors vcs_info
@@ -155,7 +156,20 @@
       # Tokyo Night prompt: user@host + path atual + branch git
       PROMPT='%F{110}%n@%m%f %F{75}%~%f ''${vcs_info_msg_0_} %# '
       RPROMPT='%F{67}%*%f'
+
+      # Keybindings para navegação de palavras com Ctrl+Seta
+      bindkey '^[[1;5C' forward-word     # Ctrl+Right
+      bindkey '^[[1;5D' backward-word    # Ctrl+Left
+      bindkey '^H' backward-delete-word   # Ctrl+Backspace
+      bindkey '^[[3;5~' kill-word        # Ctrl+Delete
     '';
+  };
+
+  programs.bash = {
+    enable = true;
+    shellAliases = {
+      sail = "vendor/bin/sail";
+    };
   };
 
   programs.home-manager.enable = true;

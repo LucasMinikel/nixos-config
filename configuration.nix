@@ -15,8 +15,12 @@
 
   networking.hostName = "nixos";
   networking.networkmanager.enable = true;
+  networking.networkmanager.wifi.powersave = false;
   networking.networkmanager.insertNameservers = [ "1.1.1.1" "9.9.9.9" ];
   networking.nameservers = [ "1.1.1.1" "9.9.9.9" ];
+  networking.hosts = {
+    "127.0.0.1" = [ "laravel.test" ];
+  };
 
   time.timeZone = "America/Sao_Paulo";
 
@@ -68,7 +72,7 @@
   users.users.lucas = {
     isNormalUser = true;
     description = "Lucas Minikel";
-    extraGroups = [ "networkmanager" "wheel" ];
+    extraGroups = [ "networkmanager" "wheel" "docker" ];
     packages = with pkgs; [];
   };
 
@@ -78,6 +82,8 @@
 
   programs.hyprland.enable = true;
   programs.hyprland.xwayland.enable = true;
+
+  virtualisation.docker.enable = true;
 
   hardware.bluetooth.enable = true;
   services.blueman.enable = true;
