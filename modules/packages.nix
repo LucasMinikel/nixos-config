@@ -17,10 +17,10 @@
     blueman
     networkmanagerapplet
     pavucontrol
-    firefox
+    libreoffice
     google-chrome
     qbittorrent
-    nodejs
+    gh
     docker-compose
     nerd-fonts.jetbrains-mono
   ];

@@ -15,6 +15,5 @@
   environment.sessionVariables = {
     WLR_NO_HARDWARE_CURSORS = "1";
     NIXOS_OZONE_WL = "1";
-    CHROME_EXTRA_FLAGS = "--ozone-platform-hint=auto --gtk-version=4 --enable-hardware-accelerated-video-decode --enable-hardware-accelerated-h264 --enable-hardware-accelerated-vp9 --disable-features=PreferVideoDecoderImageFromGpu --enable-features=HardwareMediaKeyHandling,VaapiVideoEncoder --enable-features=MultiplaneRenderingForHardwareVideo --renderer-process-limit=1";
   };
 }

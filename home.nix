@@ -74,17 +74,6 @@
     };
   };
 
-  programs.firefox = {
-    enable = true;
-    profiles.default = {
-      isDefault = true;
-      settings = {
-        "ui.systemUsesDarkTheme" = 1;
-        "toolkit.legacyUserProfileCustomizations.stylesheets" = true;
-      };
-    };
-  };
-
   home.activation.ensureHyprKeybindSource = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
     target="$HOME/.config/hypr/hyprland.conf"
     keybinds_line="source = $HOME/.config/hypr/conf.d/keybinds.conf"
