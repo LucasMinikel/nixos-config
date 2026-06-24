@@ -40,6 +40,7 @@
         "interval": 2
     },
     "custom/gpu": {
+        "exec-if": "~/.config/waybar/scripts/gpu-usage.sh >/dev/null 2>&1",
         "exec": "~/.config/waybar/scripts/gpu-usage.sh",
         "interval": 2,
         "tooltip": false
