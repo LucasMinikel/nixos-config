@@ -8,15 +8,8 @@ WALLPAPER_DIR="$HOME/nixos-config/wallpapers"
 wp=$(find "$WALLPAPER_DIR" -type f \( -iname "*.jpg" -o -iname "*.jpeg" -o -iname "*.png" -o -iname "*.webp" \) | shuf -n1)
 
 if [[ -n "$wp" ]]; then
-    if command -v awww >/dev/null 2>&1; then
-        awww img "$wp" \
-            --transition-type grow \
-            --transition-pos center \
-            --transition-duration 1
-    elif command -v swww >/dev/null 2>&1; then
-        swww img "$wp" \
-            --transition-type grow \
-            --transition-pos center \
-            --transition-duration 1
-    fi
+    awww img "$wp" \
+        --transition-type grow \
+        --transition-pos center \
+        --transition-duration 1
 fi
