@@ -1,27 +1,42 @@
-{ pkgs, ... }:
+{ config, lib, pkgs, ... }:
+
+let
+  cfg = config.lucas.desktopApps;
+in
 
 {
-  nixpkgs.config.allowUnfree = true;
+  options.lucas.desktopApps = {
+    heavy.enable = lib.mkOption {
+      type = lib.types.bool;
+      default = true;
+      description = "Install heavier desktop apps such as VS Code and Chrome.";
+    };
+  };
 
-  environment.systemPackages = with pkgs; [
-    vim
-    wget
-    git
-    btop
-    kitty
-    thunar
-    awww
-    vscode
-    waybar
-    wofi
-    blueman
-    networkmanagerapplet
-    pavucontrol
-    libreoffice
-    google-chrome
-    qbittorrent
-    gh
-    docker-compose
-    nerd-fonts.jetbrains-mono
-  ];
+  config = {
+    nixpkgs.config.allowUnfree = true;
+
+    environment.systemPackages = with pkgs; [
+      vim
+      wget
+      git
+      btop
+      kitty
+      thunar
+      awww
+      waybar
+      wofi
+      blueman
+      networkmanagerapplet
+      pavucontrol
+      libreoffice
+      qbittorrent
+      gh
+      docker-compose
+      nerd-fonts.jetbrains-mono
+    ] ++ lib.optionals cfg.heavy.enable (with pkgs; [
+      vscode
+      google-chrome
+    ]);
+  };
 }
