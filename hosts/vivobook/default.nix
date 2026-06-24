@@ -16,8 +16,6 @@
   services.power-profiles-daemon.enable = true;
   services.thermald.enable = true;
 
-  lucas.desktopApps.heavy.enable = false;
-
   environment.sessionVariables = {
     NIXOS_OZONE_WL = "1";
   };
