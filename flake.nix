@@ -9,19 +9,25 @@
     };
   };
 
-  outputs = { nixpkgs, home-manager, ... }: {
-    nixosConfigurations.nixos = nixpkgs.lib.nixosSystem {
+  outputs = { nixpkgs, home-manager, ... }:
+    let
       system = "x86_64-linux";
-      modules = [
-        ./configuration.nix
-        home-manager.nixosModules.home-manager
-        {
-          home-manager.useGlobalPkgs = true;
-          home-manager.useUserPackages = true;
-          home-manager.backupFileExtension = "backup";
-          home-manager.users.lucas = import ./home.nix;
-        }
-      ];
+      mkHost = hostModule: nixpkgs.lib.nixosSystem {
+        inherit system;
+        modules = [
+          hostModule
+          home-manager.nixosModules.home-manager
+          {
+            home-manager.useGlobalPkgs = true;
+            home-manager.useUserPackages = true;
+            home-manager.backupFileExtension = "backup";
+            home-manager.users.lucas = import ./home.nix;
+          }
+        ];
+      };
+    in
+    {
+      nixosConfigurations.nixos = mkHost ./hosts/nixos;
+      nixosConfigurations.vivobook = mkHost ./hosts/vivobook;
     };
-  };
 }

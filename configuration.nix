@@ -2,18 +2,11 @@
 
 {
   imports = [
-    ./hardware-configuration.nix
     ./modules/packages.nix
-    ./modules/nvidia.nix
   ];
 
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
 
-  boot.loader.grub.enable = true;
-  boot.loader.grub.device = "/dev/nvme0n1";
-  boot.loader.grub.useOSProber = false;
-
-  networking.hostName = "nixos";
   networking.networkmanager.enable = true;
   networking.networkmanager.wifi.powersave = false;
   networking.networkmanager.insertNameservers = [ "1.1.1.1" "9.9.9.9" ];
@@ -43,31 +36,7 @@
     nerd-fonts.jetbrains-mono
   ];
 
-  fileSystems."/mnt/HD-A" = {
-    device = "/dev/disk/by-uuid/ea3f3a7b-cbea-4e99-ab20-8a089c50a108";
-    fsType = "ext4";
-    options = [ "nofail" ];
-  };
-
-  fileSystems."/mnt/HD-B" = {
-    device = "/dev/disk/by-uuid/debba3c8-86c5-42f0-8ae7-544e675b40c4";
-    fsType = "ext4";
-    options = [ "nofail" ];
-  };
-
-  fileSystems."/home/lucas/Discos/HD-A" = {
-    device = "/mnt/HD-A";
-    fsType = "none";
-    options = [ "bind" "nofail" "x-gvfs-show" ];
-    depends = [ "/mnt/HD-A" ];
-  };
-
-  fileSystems."/home/lucas/Discos/HD-B" = {
-    device = "/mnt/HD-B";
-    fsType = "none";
-    options = [ "bind" "nofail" "x-gvfs-show" ];
-    depends = [ "/mnt/HD-B" ];
-  };
+  hardware.enableRedistributableFirmware = true;
 
   users.users.lucas = {
     isNormalUser = true;
@@ -87,12 +56,6 @@
 
   hardware.bluetooth.enable = true;
   services.blueman.enable = true;
-
-  services.plex = {
-    enable = true;
-    openFirewall = true;
-    user = "lucas";
-  };
 
   system.stateVersion = "25.11";
 }
