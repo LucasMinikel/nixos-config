@@ -1,6 +1,6 @@
 * {
     font-family: "JetBrainsMono Nerd Font", "JetBrainsMono Nerd Font Mono", "Symbols Nerd Font", "Symbols Nerd Font Mono", "Noto Color Emoji", sans-serif;
-    font-size: 13px;
+    font-size: 11px;
     min-height: 0;
     border: none;
 }
@@ -15,16 +15,16 @@ window#waybar {
 .modules-right {
     background: rgba(26, 27, 38, 0.92);
     border: 1px solid rgba(65, 72, 104, 0.8);
-    border-radius: 12px;
-    padding: 0 8px;
+    border-radius: 8px;
+    padding: 0 5px;
 }
 
 #workspaces button {
     color: #7aa2f7;
     background: transparent;
-    border-radius: 8px;
-    margin: 4px 2px;
-    padding: 1px 8px;
+    border-radius: 6px;
+    margin: 3px 1px;
+    padding: 0 6px;
 }
 
 #workspaces button.active {
@@ -44,8 +44,8 @@ window#waybar {
 #memory,
 #pulseaudio,
 #tray {
-    padding: 0 8px;
-    margin: 4px 0;
+    padding: 0 6px;
+    margin: 3px 0;
     color: #c0caf5;
 }
 
