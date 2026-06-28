@@ -20,6 +20,7 @@ in
       vim
       wget
       git
+      gnumake
       btop
       kitty
       thunar
@@ -29,6 +30,7 @@ in
       blueman
       networkmanagerapplet
       pavucontrol
+      mpv
       libreoffice
       qbittorrent
       gh

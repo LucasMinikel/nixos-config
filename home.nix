@@ -92,23 +92,31 @@
       sed -i "\\|^$rule2_v1$|d" "$target"
       sed -i "\\|^$rule2_v1_spaced$|d" "$target"
       sed -i "\\|^$rule2_v2$|d" "$target"
-      # corrigir linhas antigas com ~ para $HOME (bug Hyprland 0.54+)
-      sed -i "s|source = ~/\.config/hypr/|source = $HOME/.config/hypr/|g" "$target"
-      if ! grep -Fxq "$keybinds_line" "$target"; then
-        echo "$keybinds_line" >> "$target"
-      fi
-      if ! grep -Fxq "$layout_line" "$target"; then
-        echo "$layout_line" >> "$target"
-      fi
-      if ! grep -Fxq "$autostart_line" "$target"; then
-        echo "$autostart_line" >> "$target"
-      fi
-      if ! grep -Fxq "$env_line" "$target"; then
-        echo "$env_line" >> "$target"
-      fi
+      sed -i "\\|^exec-once = waybar$|d" "$target"
+      sed -i '\|^source = \$HOME/.config/hypr/conf.d/keybinds.conf$|d' "$target"
+      sed -i '\|^source = \$HOME/.config/hypr/conf.d/layout.conf$|d' "$target"
+      sed -i '\|^source = \$HOME/.config/hypr/conf.d/autostart.conf$|d' "$target"
+      sed -i '\|^source = \$HOME/.config/hypr/conf.d/env.conf$|d' "$target"
+      sed -i '\|^source = ~/.config/hypr/conf.d/keybinds.conf$|d' "$target"
+      sed -i '\|^source = ~/.config/hypr/conf.d/layout.conf$|d' "$target"
+      sed -i '\|^source = ~/.config/hypr/conf.d/autostart.conf$|d' "$target"
+      sed -i '\|^source = ~/.config/hypr/conf.d/env.conf$|d' "$target"
+      sed -i "\\|^$keybinds_line$|d" "$target"
+      sed -i "\\|^$layout_line$|d" "$target"
+      sed -i "\\|^$autostart_line$|d" "$target"
+      sed -i "\\|^$env_line$|d" "$target"
+      printf '%s\n%s\n%s\n%s\n' \
+        "$keybinds_line" \
+        "$layout_line" \
+        "$autostart_line" \
+        "$env_line" >> "$target"
     else
       mkdir -p "$HOME/.config/hypr"
-      printf '%s\n%s\n' "$keybinds_line" "$layout_line" > "$target"
+      printf '%s\n%s\n%s\n%s\n' \
+        "$keybinds_line" \
+        "$layout_line" \
+        "$autostart_line" \
+        "$env_line" > "$target"
     fi
   '';
 
