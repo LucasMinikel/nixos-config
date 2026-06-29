@@ -43,6 +43,7 @@ window#waybar {
 #custom-gpu,
 #memory,
 #pulseaudio,
+#battery,
 #tray {
     padding: 0 6px;
     margin: 3px 0;
@@ -67,5 +68,17 @@ window#waybar {
 }
 
 #pulseaudio {
+    color: #f7768e;
+}
+
+#battery {
+    color: #9ece6a;
+}
+
+#battery.warning {
+    color: #e0af68;
+}
+
+#battery.critical {
     color: #f7768e;
 }

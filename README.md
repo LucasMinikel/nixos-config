@@ -7,11 +7,20 @@ Este repositório usa flakes e Home Manager para manter o sistema declarativo.
 Este repositório tem uma base comum em `configuration.nix` e um arquivo por
 maquina em `hosts/`.
 
+    generic   template generico para uma nova maquina
     nixos     desktop atual, com NVIDIA, Plex e discos extras
     vivobook  ASUS Vivobook X1504V, sem NVIDIA
 
 O nome do host deve bater com o alvo do flake. Assim o alias `update` usa
 automaticamente `#nixos` no desktop e `#vivobook` no notebook.
+
+Os arquivos de hardware ficam em `hosts/<nome>/hardware-configuration.nix`.
+O restante da configuracao comum e compartilhado pelos dois sistemas. A branch
+unificada atual para os dois hosts e `vivobook-full-apps`.
+
+Para usar o host `generic` em uma maquina real, copie ele para um novo nome em
+`hosts/`, substitua o `hardware-configuration.nix` pelo arquivo gerado nessa
+maquina e adicione o novo alvo em `flake.nix`.
 
 ## 2) Primeira build no ASUS Vivobook
 
@@ -20,7 +29,7 @@ de hardware gerado pela instalacao. Ele contem os UUIDs corretos do disco,
 filesystem de boot, modulos do initrd e microcode.
 
     nix-shell -p git
-    git clone -b vivobook-x1504v https://github.com/LucasMinikel/nixos-config.git ~/nixos-config
+    git clone -b vivobook-full-apps https://github.com/LucasMinikel/nixos-config.git ~/nixos-config
     cd ~/nixos-config
     cp /etc/nixos/hardware-configuration.nix hosts/vivobook/hardware-configuration.nix
     git add hosts/vivobook/hardware-configuration.nix

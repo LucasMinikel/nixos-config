@@ -30,7 +30,11 @@
     LC_TIME = "pt_BR.UTF-8";
   };
 
-  services.xserver.xkb.layout = "us";
+  services.xserver.xkb = {
+    layout = "br";
+    variant = "nodeadkeys";
+  };
+  console.useXkbConfig = true;
 
   fonts.packages = with pkgs; [
     nerd-fonts.jetbrains-mono

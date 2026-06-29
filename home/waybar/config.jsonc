@@ -18,6 +18,7 @@
         "custom/gpu",
         "memory",
         "pulseaudio",
+        "battery",
         "tray"
     ],
     "hyprland/workspaces": {
@@ -60,6 +61,30 @@
             ]
         },
         "on-click": "pavucontrol"
+    },
+    "battery": {
+        "format": "{icon} {capacity}%",
+        "format-charging": "󰂄 {capacity}%",
+        "format-plugged": "󰚥 {capacity}%",
+        "format-full": "󰁹 {capacity}%",
+        "format-icons": [
+            "󰁺",
+            "󰁻",
+            "󰁼",
+            "󰁽",
+            "󰁾",
+            "󰁿",
+            "󰂀",
+            "󰂁",
+            "󰂂",
+            "󰁹"
+        ],
+        "interval": 10,
+        "states": {
+            "warning": 30,
+            "critical": 15
+        },
+        "tooltip": false
     },
     "tray": {
         "spacing": 6
