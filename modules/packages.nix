@@ -1,6 +1,74 @@
 { lib, pkgs, ... }:
 
 let
+  codex-latest =
+    let
+      version = "0.142.4";
+      platform = "linux-x64";
+    in
+    pkgs.stdenvNoCC.mkDerivation {
+      pname = "codex";
+      inherit version;
+
+      src = pkgs.fetchurl {
+        url = "https://registry.npmjs.org/@openai/codex/-/codex-${version}.tgz";
+        hash = "sha256-ZcVgF0STQdVb46lmVN81th1DtINH7Alq+9H6sYKnsVw=";
+      };
+
+      platformPackage = pkgs.fetchurl {
+        url = "https://registry.npmjs.org/@openai/codex/-/codex-${version}-${platform}.tgz";
+        hash = "sha256-PVplrOt1q7N8fo4DHbGgw00LpV1dJjxeb0MMIefebHw=";
+      };
+
+      nativeBuildInputs = [
+        pkgs.makeWrapper
+      ];
+
+      dontConfigure = true;
+      dontBuild = true;
+
+      unpackPhase = ''
+        runHook preUnpack
+        mkdir codex codex-${platform}
+        tar -xzf "$src" -C codex --strip-components=1
+        tar -xzf "$platformPackage" -C codex-${platform} --strip-components=1
+        runHook postUnpack
+      '';
+
+      installPhase = ''
+        runHook preInstall
+
+        mkdir -p \
+          "$out/lib/node_modules/@openai/codex" \
+          "$out/lib/node_modules/@openai/codex-${platform}" \
+          "$out/bin"
+
+        cp -r codex/. "$out/lib/node_modules/@openai/codex/"
+        cp -r codex-${platform}/. "$out/lib/node_modules/@openai/codex-${platform}/"
+
+        chmod +x "$out/lib/node_modules/@openai/codex/bin/codex.js"
+        chmod +x "$out/lib/node_modules/@openai/codex-${platform}/vendor/x86_64-unknown-linux-musl/bin/codex"
+
+        makeWrapper ${pkgs.nodejs}/bin/node "$out/bin/codex" \
+          --add-flags "$out/lib/node_modules/@openai/codex/bin/codex.js" \
+          --prefix PATH : ${lib.makeBinPath [
+            pkgs.bubblewrap
+            pkgs.ripgrep
+          ]}
+
+        runHook postInstall
+      '';
+
+      meta = {
+        description = "Lightweight coding agent that runs in your terminal";
+        homepage = "https://github.com/openai/codex";
+        changelog = "https://raw.githubusercontent.com/openai/codex/refs/tags/rust-v${version}/CHANGELOG.md";
+        license = lib.licenses.asl20;
+        mainProgram = "codex";
+        platforms = [ "x86_64-linux" ];
+      };
+    };
+
   navicat-mysql = pkgs.navicat-premium.overrideAttrs (finalAttrs: previousAttrs: {
     pname = "navicat-mysql";
     version = "17.3.9";
@@ -73,7 +141,6 @@ in
   nixpkgs.config.allowUnfree = true;
 
   environment.systemPackages = with pkgs; [
-    vim
     wget
     git
     gnumake
@@ -83,6 +150,11 @@ in
     awww
     waybar
     wofi
+    bubblewrap
+    grim
+    slurp
+    wl-clipboard
+    libnotify
     blueman
     networkmanagerapplet
     pavucontrol
@@ -90,6 +162,7 @@ in
     libreoffice
     qbittorrent
     gh
+    codex-latest
     docker-compose
     nerd-fonts.jetbrains-mono
     vscode

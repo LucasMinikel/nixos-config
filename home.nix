@@ -13,6 +13,46 @@
     source = ./home/hypr/scripts/wallpaper.sh;
     executable = true;
   };
+  home.file.".config/hypr/scripts/screenshot-copy.sh" = {
+    executable = true;
+    text = ''
+      #!/usr/bin/env bash
+      set -euo pipefail
+
+      mode="''${1:-area}"
+      tmp="$(mktemp --suffix=.png)"
+
+      cleanup() {
+          rm -f "$tmp"
+      }
+
+      notify() {
+          if command -v notify-send >/dev/null 2>&1; then
+              notify-send -a screenshot "$@" >/dev/null 2>&1 || true
+          fi
+      }
+
+      trap cleanup EXIT
+
+      case "$mode" in
+          full)
+              grim "$tmp"
+              ;;
+          area)
+              geometry="$(slurp)" || exit 0
+              [[ -n "$geometry" ]] || exit 0
+              grim -g "$geometry" "$tmp"
+              ;;
+          *)
+              echo "Usage: $0 [full|area]" >&2
+              exit 2
+              ;;
+      esac
+
+      wl-copy --type image/png < "$tmp"
+      notify "Screenshot copied" "Image copied to clipboard."
+    '';
+  };
   home.file.".config/waybar/config".source = ./home/waybar/config.jsonc;
   home.file.".config/waybar/style.css".source = ./home/waybar/style.css;
   home.file.".config/waybar/scripts/gpu-usage.sh" = {
