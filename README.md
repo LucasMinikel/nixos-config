@@ -7,43 +7,47 @@ Este repositório usa flakes e Home Manager para manter o sistema declarativo.
 Este repositório tem uma base comum em `configuration.nix` e um arquivo por
 maquina em `hosts/`.
 
-    generic   template generico para uma nova maquina
-    nixos     desktop atual, com NVIDIA, Plex e discos extras
-    vivobook  ASUS Vivobook X1504V, sem NVIDIA
+    generic   sistema sem NVIDIA
+    nvidia    sistema com NVIDIA
 
 O nome do host deve bater com o alvo do flake. Assim o alias `update` usa
-automaticamente `#nixos` no desktop e `#vivobook` no notebook.
+automaticamente `#generic` na maquina sem NVIDIA e `#nvidia` na maquina com
+NVIDIA.
 
 Os arquivos de hardware ficam em `hosts/<nome>/hardware-configuration.nix`.
-O restante da configuracao comum e compartilhado pelos dois sistemas. A branch
-unificada atual para os dois hosts e `vivobook-full-apps`.
+O restante da configuracao comum e compartilhado pelos dois sistemas.
 
-Para usar o host `generic` em uma maquina real, copie ele para um novo nome em
-`hosts/`, substitua o `hardware-configuration.nix` pelo arquivo gerado nessa
-maquina e adicione o novo alvo em `flake.nix`.
+Para uma maquina nova, copie `hosts/generic` ou `hosts/nvidia`, substitua o
+`hardware-configuration.nix` pelo arquivo gerado nessa maquina e adicione o novo
+alvo em `flake.nix` se precisar de outro perfil.
 
-## 2) Primeira build no ASUS Vivobook
+## 2) Primeira build em uma maquina
 
 Depois de instalar o NixOS minimal pelo instalador grafico, mantenha o arquivo
 de hardware gerado pela instalacao. Ele contem os UUIDs corretos do disco,
 filesystem de boot, modulos do initrd e microcode.
 
+Escolha o perfil antes de rodar:
+
+    generic  maquina sem NVIDIA
+    nvidia   maquina com NVIDIA
+
     nix-shell -p git
-    git clone -b vivobook-full-apps https://github.com/LucasMinikel/nixos-config.git ~/nixos-config
+    git clone https://github.com/LucasMinikel/nixos-config.git ~/nixos-config
     cd ~/nixos-config
-    cp /etc/nixos/hardware-configuration.nix hosts/vivobook/hardware-configuration.nix
-    git add hosts/vivobook/hardware-configuration.nix
-    sudo nixos-rebuild boot --flake .#vivobook
+    cp /etc/nixos/hardware-configuration.nix hosts/<perfil>/hardware-configuration.nix
+    git add hosts/<perfil>/hardware-configuration.nix
+    sudo nixos-rebuild boot --flake .#<perfil>
     sudo reboot
 
 Depois do primeiro boot com a config nova:
 
     cd ~/nixos-config
-    sudo nixos-rebuild switch --flake .#vivobook
+    sudo nixos-rebuild switch --flake .#<perfil>
 
 Se quiser validar antes de aplicar:
 
-    nixos-rebuild build --flake .#vivobook
+    nixos-rebuild build --flake .#<perfil>
 
 ## 3) Aplicar mudancas no sistema
 
@@ -81,7 +85,7 @@ Reabrir Thunar apos alteracoes de tema:
     pkill thunar
     thunar &
 
-## 6) Discos (Plex)
+## 6) Discos (Plex no perfil nvidia)
 
 Listar montagens dos discos:
 

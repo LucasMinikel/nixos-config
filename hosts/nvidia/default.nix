@@ -11,7 +11,7 @@
   boot.loader.grub.device = "/dev/nvme0n1";
   boot.loader.grub.useOSProber = false;
 
-  networking.hostName = "nixos";
+  networking.hostName = "nvidia";
 
   fileSystems."/mnt/HD-A" = {
     device = "/dev/disk/by-uuid/ea3f3a7b-cbea-4e99-ab20-8a089c50a108";

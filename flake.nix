@@ -28,7 +28,6 @@
     in
     {
       nixosConfigurations.generic = mkHost ./hosts/generic;
-      nixosConfigurations.nixos = mkHost ./hosts/nixos;
-      nixosConfigurations.vivobook = mkHost ./hosts/vivobook;
+      nixosConfigurations.nvidia = mkHost ./hosts/nvidia;
     };
 }
