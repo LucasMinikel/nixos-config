@@ -544,6 +544,7 @@ in
     libreoffice
     qbittorrent
     gh
+    nodejs
     codex-latest
     docker-compose
     nerd-fonts.jetbrains-mono
