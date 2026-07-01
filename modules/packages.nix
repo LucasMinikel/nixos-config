@@ -135,6 +135,387 @@ let
       mainProgram = "navicat-mysql";
     };
   });
+
+  antigravity =
+    let
+      version = "2.2.1";
+      build = "5287492581195776";
+      runtimeDependencies = with pkgs; [
+        alsa-lib
+        at-spi2-atk
+        at-spi2-core
+        cairo
+        cups
+        dbus
+        expat
+        glib
+        gtk3
+        libdrm
+        libgbm
+        libGL
+        libxkbcommon
+        libx11
+        libxcb
+        libxcomposite
+        libxdamage
+        libxext
+        libxfixes
+        libxrandr
+        mesa
+        nspr
+        nss
+        pango
+        systemd
+      ];
+    in
+    pkgs.stdenvNoCC.mkDerivation {
+      pname = "antigravity";
+      inherit version;
+
+      src = pkgs.fetchurl {
+        url = "https://storage.googleapis.com/antigravity-public/antigravity-hub/${version}-${build}/linux-x64/Antigravity.tar.gz";
+        hash = "sha256-prp3BG+SqhziHYoMZ0lUca9MK+EbpiTl2TWCGWmyCYk=";
+      };
+
+      icon = pkgs.fetchurl {
+        url = "https://antigravity.google/assets/image/antigravity-logo.png";
+        hash = "sha256-jwuV0tIdv5MLTRAOL9xFBWc+kApzGqVupjOktZwxJ5k=";
+      };
+
+      nativeBuildInputs = with pkgs; [
+        autoPatchelfHook
+        copyDesktopItems
+        makeWrapper
+      ];
+
+      buildInputs = runtimeDependencies;
+
+      desktopItems = [
+        (pkgs.makeDesktopItem {
+          name = "antigravity";
+          desktopName = "Antigravity";
+          comment = "Experience liftoff";
+          genericName = "Agentic Platform";
+          exec = "antigravity %U";
+          icon = "antigravity";
+          categories = [
+            "Development"
+            "Utility"
+          ];
+          startupNotify = false;
+          startupWMClass = "Antigravity";
+        })
+      ];
+
+      dontConfigure = true;
+      dontBuild = true;
+
+      installPhase = ''
+        runHook preInstall
+
+        mkdir -p "$out/opt/Antigravity" "$out/bin" "$out/share/applications" "$out/share/pixmaps"
+        cp -r . "$out/opt/Antigravity/"
+
+        install -Dm644 "$icon" "$out/share/pixmaps/antigravity.png"
+
+        cat > "$out/opt/Antigravity/antigravity-launcher" <<'EOF'
+        #!/bin/sh
+        set -eu
+
+        config_dir="''${XDG_CONFIG_HOME:-$HOME/.config}/Antigravity"
+        lock_target="$(readlink "$config_dir/SingletonLock" 2>/dev/null || true)"
+        running_pid="''${lock_target##*-}"
+
+        if [ -n "$running_pid" ] && [ "$running_pid" != "$lock_target" ] && kill -0 "$running_pid" 2>/dev/null; then
+          if ${pkgs.hyprland}/bin/hyprctl clients -j 2>/dev/null | ${pkgs.ripgrep}/bin/rg -q "\"pid\": ?$running_pid"; then
+            exec "$out/opt/Antigravity/antigravity" "$@"
+          fi
+
+          ${pkgs.procps}/bin/pkill -TERM -P "$running_pid" 2>/dev/null || true
+          kill -TERM "$running_pid" 2>/dev/null || true
+          sleep 1
+          kill -KILL "$running_pid" 2>/dev/null || true
+          rm -f "$config_dir/SingletonLock" "$config_dir/SingletonSocket" "$config_dir/SingletonCookie"
+        fi
+
+        exec "$out/opt/Antigravity/antigravity" "$@"
+        EOF
+        substituteInPlace "$out/opt/Antigravity/antigravity-launcher" \
+          --replace-fail '$out' "$out"
+        chmod +x "$out/opt/Antigravity/antigravity-launcher"
+
+        makeWrapper "$out/opt/Antigravity/antigravity-launcher" "$out/bin/antigravity" \
+          --prefix LD_LIBRARY_PATH : ${lib.makeLibraryPath runtimeDependencies} \
+          --set-default NIXOS_OZONE_WL 1
+
+        runHook postInstall
+      '';
+
+      meta = {
+        description = "Google Antigravity 2.0 multi-agent orchestration platform";
+        homepage = "https://antigravity.google/product/antigravity-2";
+        license = lib.licenses.unfree;
+        mainProgram = "antigravity";
+        platforms = [ "x86_64-linux" ];
+      };
+    };
+
+  paseo =
+    let
+      version = "0.1.102";
+      runtimeDependencies = with pkgs; [
+        alsa-lib
+        at-spi2-core
+        cairo
+        cups
+        dbus
+        expat
+        glib
+        gtk3
+        libayatana-appindicator
+        libcap_ng
+        libdrm
+        libgbm
+        libGL
+        libnotify
+        libsecret
+        libuuid
+        libx11
+        libxcb
+        libxcomposite
+        libxdamage
+        libxext
+        libxfixes
+        libxkbcommon
+        libxrandr
+        libXtst
+        mesa
+        nspr
+        nss
+        pango
+        libseccomp
+        systemd
+      ];
+    in
+    pkgs.stdenvNoCC.mkDerivation {
+      pname = "paseo";
+      inherit version;
+
+      src = pkgs.fetchurl {
+        url = "https://github.com/getpaseo/paseo/releases/download/v0.1.102/Paseo-0.1.102-amd64.deb";
+        hash = "sha256-4tO4z9xJttq25ah4vfJdBmdyXNtOSww5X50l2xoa0uE=";
+      };
+
+      nativeBuildInputs = with pkgs; [
+        autoPatchelfHook
+        dpkg
+        makeWrapper
+      ];
+
+      buildInputs = runtimeDependencies;
+
+      dontConfigure = true;
+      dontBuild = true;
+
+      unpackPhase = ''
+        runHook preUnpack
+        dpkg-deb --fsys-tarfile "$src" | tar --no-same-owner --no-same-permissions -xf -
+        runHook postUnpack
+      '';
+
+      installPhase = ''
+        runHook preInstall
+
+        mkdir -p "$out/bin" "$out/lib" "$out/share"
+        cp -r opt/Paseo "$out/lib/"
+
+        if [ -d usr/share/applications ]; then
+          cp -r usr/share/applications "$out/share/"
+        fi
+
+        if [ -d usr/share/icons ]; then
+          cp -r usr/share/icons "$out/share/"
+        fi
+
+        substituteInPlace "$out/share/applications/Paseo.desktop" \
+          --replace-fail "/opt/Paseo/Paseo" "$out/bin/paseo"
+
+        makeWrapper "$out/lib/Paseo/Paseo" "$out/bin/paseo" \
+          --add-flags --no-sandbox \
+          --prefix LD_LIBRARY_PATH : ${lib.makeLibraryPath runtimeDependencies}:$out/lib/Paseo \
+          --prefix PATH : ${lib.makeBinPath [
+            pkgs.glib
+            pkgs.gnome-keyring
+            pkgs.trash-cli
+            pkgs.xdg-utils
+          ]} \
+          --set-default NIXOS_OZONE_WL 1
+
+        runHook postInstall
+      '';
+
+      meta = {
+        description = "Unified interface to orchestrate and manage AI coding agents";
+        homepage = "https://paseo.sh/";
+        license = lib.licenses.mit;
+        mainProgram = "paseo";
+        platforms = [ "x86_64-linux" ];
+      };
+    };
+
+  orca-ide =
+    let
+      version = "1.4.114";
+      runtimeDependencies = with pkgs; [
+        alsa-lib
+        at-spi2-core
+        cairo
+        cups
+        dbus
+        expat
+        glib
+        gtk3
+        libayatana-appindicator
+        libcap_ng
+        libdrm
+        libgbm
+        libGL
+        libnotify
+        libsecret
+        libuuid
+        libx11
+        libxcb
+        libxcomposite
+        libxdamage
+        libxext
+        libxfixes
+        libxkbcommon
+        libxrandr
+        libXtst
+        mesa
+        nspr
+        nss
+        pango
+        libseccomp
+        systemd
+      ];
+    in
+    pkgs.stdenvNoCC.mkDerivation {
+      pname = "orca-ide";
+      inherit version;
+
+      src = pkgs.fetchurl {
+        url = "https://github.com/stablyai/orca/releases/download/v1.4.114/orca-ide_1.4.114_amd64.deb";
+        hash = "sha256-QLdgw4fHlIZsS5cfxN4fcrYnqIhteWJKGSBucoldfXk=";
+      };
+
+      nativeBuildInputs = with pkgs; [
+        autoPatchelfHook
+        dpkg
+        makeWrapper
+      ];
+
+      buildInputs = runtimeDependencies;
+
+      dontConfigure = true;
+      dontBuild = true;
+
+      unpackPhase = ''
+        runHook preUnpack
+        dpkg-deb --fsys-tarfile "$src" | tar --no-same-owner --no-same-permissions -xf -
+        runHook postUnpack
+      '';
+
+      installPhase = ''
+        runHook preInstall
+
+        mkdir -p "$out/bin" "$out/lib" "$out/share"
+        cp -r opt/Orca "$out/lib/"
+
+        if [ -d usr/share/applications ]; then
+          cp -r usr/share/applications "$out/share/"
+        fi
+
+        if [ -d usr/share/icons ]; then
+          cp -r usr/share/icons "$out/share/"
+        fi
+
+        substituteInPlace "$out/share/applications/orca-ide.desktop" \
+          --replace-fail "/opt/Orca/orca-ide" "$out/bin/orca-ide"
+
+        makeWrapper "$out/lib/Orca/orca-ide" "$out/bin/orca-ide" \
+          --add-flags --no-sandbox \
+          --prefix LD_LIBRARY_PATH : ${lib.makeLibraryPath runtimeDependencies}:$out/lib/Orca \
+          --prefix PATH : ${lib.makeBinPath [
+            pkgs.glib
+            pkgs.gnome-keyring
+            pkgs.trash-cli
+            pkgs.xdg-utils
+          ]} \
+          --set-default NIXOS_OZONE_WL 1
+
+        runHook postInstall
+      '';
+
+      meta = {
+        description = "Agent Development Environment for running coding agents in parallel";
+        homepage = "https://www.onorca.dev/";
+        license = lib.licenses.mit;
+        mainProgram = "orca-ide";
+        platforms = [ "x86_64-linux" ];
+      };
+    };
+
+  claude-code =
+    let
+      version = "2.1.185";
+    in
+    pkgs.stdenvNoCC.mkDerivation {
+      pname = "claude-code";
+      inherit version;
+
+      src = pkgs.fetchurl {
+        url = "https://storage.googleapis.com/claude-code-dist-86c565f3-f756-42ad-8dfa-d59b1c096819/claude-code-releases/${version}/linux-x64/claude";
+        hash = "sha256-4SRjOGmfBO4OYn3uP21O16C6tI4FFL3mnG2tQ7wwOVI=";
+      };
+
+      nativeBuildInputs = with pkgs; [
+        autoPatchelfHook
+        makeWrapper
+      ];
+
+      buildInputs = with pkgs; [
+        stdenv.cc.cc.lib
+        zlib
+      ];
+
+      dontUnpack = true;
+      dontStrip = true;
+
+      installPhase = ''
+        runHook preInstall
+        install -Dm755 "$src" "$out/bin/claude"
+        runHook postInstall
+      '';
+
+      postFixup = ''
+        wrapProgram "$out/bin/claude" \
+          --argv0 claude \
+          --set DISABLE_AUTOUPDATER 1 \
+          --set DISABLE_INSTALLATION_CHECKS 1 \
+          --set-default DISABLE_NON_ESSENTIAL_MODEL_CALLS 1 \
+          --set DISABLE_TELEMETRY 1 \
+          --set CLAUDE_CODE_DISABLE_NONESSENTIAL_TRAFFIC 1
+      '';
+
+      meta = {
+        description = "Anthropic's terminal-based AI coding agent";
+        homepage = "https://claude.ai";
+        license = lib.licenses.unfree;
+        mainProgram = "claude";
+        platforms = [ "x86_64-linux" ];
+      };
+    };
 in
 
 {
@@ -142,6 +523,7 @@ in
 
   environment.systemPackages = with pkgs; [
     wget
+    unzip
     git
     gnumake
     btop
@@ -168,5 +550,9 @@ in
     vscode
     google-chrome
     navicat-mysql
+    antigravity
+    paseo
+    orca-ide
+    claude-code
   ];
 }

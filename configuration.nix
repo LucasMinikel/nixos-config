@@ -3,6 +3,7 @@
 {
   imports = [
     ./modules/packages.nix
+    ./modules/monitoring.nix
   ];
 
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
@@ -52,6 +53,9 @@
   programs.zsh.enable = true;
 
   users.users.lucas.shell = pkgs.zsh;
+
+  services.gnome.gnome-keyring.enable = true;
+  security.pam.services.login.enableGnomeKeyring = true;
 
   programs.hyprland.enable = true;
   programs.hyprland.xwayland.enable = true;
