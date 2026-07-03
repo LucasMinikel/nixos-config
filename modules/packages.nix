@@ -1,24 +1,20 @@
 { lib, pkgs, ... }:
 
 let
+  sources = pkgs.callPackage ../_sources/generated.nix { };
+
   codex-latest =
     let
-      version = "0.142.4";
+      version = sources.codex.version;
       platform = "linux-x64";
     in
     pkgs.stdenvNoCC.mkDerivation {
       pname = "codex";
       inherit version;
 
-      src = pkgs.fetchurl {
-        url = "https://registry.npmjs.org/@openai/codex/-/codex-${version}.tgz";
-        hash = "sha256-ZcVgF0STQdVb46lmVN81th1DtINH7Alq+9H6sYKnsVw=";
-      };
+      src = sources.codex.src;
 
-      platformPackage = pkgs.fetchurl {
-        url = "https://registry.npmjs.org/@openai/codex/-/codex-${version}-${platform}.tgz";
-        hash = "sha256-PVplrOt1q7N8fo4DHbGgw00LpV1dJjxeb0MMIefebHw=";
-      };
+      platformPackage = sources.codex-linux-x64.src;
 
       nativeBuildInputs = [
         pkgs.makeWrapper
@@ -262,7 +258,7 @@ let
 
   paseo =
     let
-      version = "0.1.102";
+      version = sources.paseo.version;
       runtimeDependencies = with pkgs; [
         alsa-lib
         at-spi2-core
@@ -301,10 +297,7 @@ let
       pname = "paseo";
       inherit version;
 
-      src = pkgs.fetchurl {
-        url = "https://github.com/getpaseo/paseo/releases/download/v0.1.102/Paseo-0.1.102-amd64.deb";
-        hash = "sha256-4tO4z9xJttq25ah4vfJdBmdyXNtOSww5X50l2xoa0uE=";
-      };
+      src = sources.paseo.src;
 
       nativeBuildInputs = with pkgs; [
         autoPatchelfHook
@@ -365,7 +358,7 @@ let
 
   orca-ide =
     let
-      version = "1.4.114";
+      version = sources.orca-ide.version;
       runtimeDependencies = with pkgs; [
         alsa-lib
         at-spi2-core
@@ -404,10 +397,7 @@ let
       pname = "orca-ide";
       inherit version;
 
-      src = pkgs.fetchurl {
-        url = "https://github.com/stablyai/orca/releases/download/v1.4.114/orca-ide_1.4.114_amd64.deb";
-        hash = "sha256-QLdgw4fHlIZsS5cfxN4fcrYnqIhteWJKGSBucoldfXk=";
-      };
+      src = sources.orca-ide.src;
 
       nativeBuildInputs = with pkgs; [
         autoPatchelfHook
@@ -468,16 +458,13 @@ let
 
   claude-code =
     let
-      version = "2.1.185";
+      version = sources.claude-code.version;
     in
     pkgs.stdenvNoCC.mkDerivation {
       pname = "claude-code";
       inherit version;
 
-      src = pkgs.fetchurl {
-        url = "https://storage.googleapis.com/claude-code-dist-86c565f3-f756-42ad-8dfa-d59b1c096819/claude-code-releases/${version}/linux-x64/claude";
-        hash = "sha256-4SRjOGmfBO4OYn3uP21O16C6tI4FFL3mnG2tQ7wwOVI=";
-      };
+      src = sources.claude-code.src;
 
       nativeBuildInputs = with pkgs; [
         autoPatchelfHook
@@ -540,6 +527,7 @@ in
     blueman
     networkmanagerapplet
     pavucontrol
+    brightnessctl
     mpv
     libreoffice
     qbittorrent

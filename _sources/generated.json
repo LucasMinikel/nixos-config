@@ -1,0 +1,77 @@
+{
+    "claude-code": {
+        "cargoLock": null,
+        "date": null,
+        "extract": null,
+        "name": "claude-code",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "name": null,
+            "sha256": "sha256-sx39Xj3uI7UcQuDY3bQFFIl4I306q8jLv3fFz4M2fic=",
+            "type": "url",
+            "url": "https://storage.googleapis.com/claude-code-dist-86c565f3-f756-42ad-8dfa-d59b1c096819/claude-code-releases/2.1.199/linux-x64/claude"
+        },
+        "version": "2.1.199"
+    },
+    "codex": {
+        "cargoLock": null,
+        "date": null,
+        "extract": null,
+        "name": "codex",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "name": null,
+            "sha256": "sha256-+bPYbxDy15xti3z1r0PJJu0guG5DGPm0MmYaxA06CcE=",
+            "type": "url",
+            "url": "https://registry.npmjs.org/@openai/codex/-/codex-0.142.5.tgz"
+        },
+        "version": "0.142.5"
+    },
+    "codex-linux-x64": {
+        "cargoLock": null,
+        "date": null,
+        "extract": null,
+        "name": "codex-linux-x64",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "name": null,
+            "sha256": "sha256-oD4xFssJCa67Az45zUAYs6Ha+dSJYxk5thY/+pB63kc=",
+            "type": "url",
+            "url": "https://registry.npmjs.org/@openai/codex/-/codex-0.142.5-linux-x64.tgz"
+        },
+        "version": "0.142.5"
+    },
+    "orca-ide": {
+        "cargoLock": null,
+        "date": null,
+        "extract": null,
+        "name": "orca-ide",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "name": null,
+            "sha256": "sha256-mXFRviIZoXDDYezeUUrOfeXThCXBvLn4h9bvhrf5mzw=",
+            "type": "url",
+            "url": "https://github.com/stablyai/orca/releases/download/v1.4.120/orca-ide_1.4.120_amd64.deb"
+        },
+        "version": "1.4.120"
+    },
+    "paseo": {
+        "cargoLock": null,
+        "date": null,
+        "extract": null,
+        "name": "paseo",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "name": null,
+            "sha256": "sha256-gIzyEK0hqGpnBoBoXQBgmQ5W+WjQaaQHWZtb5BlFTz8=",
+            "type": "url",
+            "url": "https://github.com/getpaseo/paseo/releases/download/v0.1.103/Paseo-0.1.103-amd64.deb"
+        },
+        "version": "0.1.103"
+    }
+}

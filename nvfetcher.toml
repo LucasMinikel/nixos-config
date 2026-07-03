@@ -1,0 +1,24 @@
+[orca-ide]
+src.github = "stablyai/orca"
+src.prefix = "v"
+fetch.url = "https://github.com/stablyai/orca/releases/download/v$ver/orca-ide_$ver_amd64.deb"
+
+[paseo]
+src.github = "getpaseo/paseo"
+src.prefix = "v"
+fetch.url = "https://github.com/getpaseo/paseo/releases/download/v$ver/Paseo-$ver-amd64.deb"
+
+[codex]
+src.webpage = "https://registry.npmjs.org/@openai/codex/latest"
+src.regex = '"version":"([\d.]+)"'
+fetch.url = "https://registry.npmjs.org/@openai/codex/-/codex-$ver.tgz"
+
+[codex-linux-x64]
+src.webpage = "https://registry.npmjs.org/@openai/codex/latest"
+src.regex = '"version":"([\d.]+)"'
+fetch.url = "https://registry.npmjs.org/@openai/codex/-/codex-$ver-linux-x64.tgz"
+
+[claude-code]
+src.webpage = "https://registry.npmjs.org/@anthropic-ai/claude-code/latest"
+src.regex = '"version":"([\d.]+)"'
+fetch.url = "https://storage.googleapis.com/claude-code-dist-86c565f3-f756-42ad-8dfa-d59b1c096819/claude-code-releases/$ver/linux-x64/claude"

@@ -42,6 +42,7 @@ window#waybar {
 #cpu,
 #custom-gpu,
 #memory,
+#backlight,
 #pulseaudio,
 #battery,
 #tray {
@@ -65,6 +66,10 @@ window#waybar {
 
 #memory {
     color: #9ece6a;
+}
+
+#backlight {
+    color: #ff9e64;
 }
 
 #pulseaudio {

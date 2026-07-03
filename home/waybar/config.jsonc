@@ -17,6 +17,7 @@
         "cpu",
         "custom/gpu",
         "memory",
+        "backlight",
         "pulseaudio",
         "battery",
         "tray"
@@ -49,6 +50,14 @@
     "memory": {
         "format": "󰍛 {percentage}%",
         "interval": 2
+    },
+    "backlight": {
+        "device": "intel_backlight",
+        "format": "{icon} {percent}%",
+        "format-icons": ["󰃞", "󰃟", "󰃠"],
+        "on-scroll-up": "brightnessctl set +1%",
+        "on-scroll-down": "brightnessctl set 1%-",
+        "tooltip": false
     },
     "pulseaudio": {
         "format": "{icon} {volume}%",
