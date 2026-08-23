@@ -8,42 +8,42 @@
 {
   claude-code = {
     pname = "claude-code";
-    version = "2.1.199";
+    version = "2.1.238";
     src = fetchurl {
-      url = "https://storage.googleapis.com/claude-code-dist-86c565f3-f756-42ad-8dfa-d59b1c096819/claude-code-releases/2.1.199/linux-x64/claude";
-      sha256 = "sha256-sx39Xj3uI7UcQuDY3bQFFIl4I306q8jLv3fFz4M2fic=";
+      url = "https://storage.googleapis.com/claude-code-dist-86c565f3-f756-42ad-8dfa-d59b1c096819/claude-code-releases/2.1.238/linux-x64/claude";
+      sha256 = "sha256-CTOyhs+U4bJQSzWsFlq3a4+CJzXVM3HFY5OYjCMEDVg=";
     };
   };
   codex = {
     pname = "codex";
-    version = "0.142.5";
+    version = "0.149.0";
     src = fetchurl {
-      url = "https://registry.npmjs.org/@openai/codex/-/codex-0.142.5.tgz";
-      sha256 = "sha256-+bPYbxDy15xti3z1r0PJJu0guG5DGPm0MmYaxA06CcE=";
+      url = "https://registry.npmjs.org/@openai/codex/-/codex-0.149.0.tgz";
+      sha256 = "sha256-4OWVPu8XtWDAnIE/+0FysXVXdbjFZZMEGXSU45wjnfc=";
     };
   };
   codex-linux-x64 = {
     pname = "codex-linux-x64";
-    version = "0.142.5";
+    version = "0.149.0";
     src = fetchurl {
-      url = "https://registry.npmjs.org/@openai/codex/-/codex-0.142.5-linux-x64.tgz";
-      sha256 = "sha256-oD4xFssJCa67Az45zUAYs6Ha+dSJYxk5thY/+pB63kc=";
+      url = "https://registry.npmjs.org/@openai/codex/-/codex-0.149.0-linux-x64.tgz";
+      sha256 = "sha256-4G89EG/ouwWKa/0wB12J6hferufIQl4MXSMHLfD90Oc=";
     };
   };
   orca-ide = {
     pname = "orca-ide";
-    version = "1.4.120";
+    version = "1.4.187";
     src = fetchurl {
-      url = "https://github.com/stablyai/orca/releases/download/v1.4.120/orca-ide_1.4.120_amd64.deb";
-      sha256 = "sha256-mXFRviIZoXDDYezeUUrOfeXThCXBvLn4h9bvhrf5mzw=";
+      url = "https://github.com/stablyai/orca/releases/download/v1.4.187/orca-ide_1.4.187_amd64.deb";
+      sha256 = "sha256-l7qeOwjgAuzMfPq2c3qJGulbFyMfR3bci42UEdTZlqU=";
     };
   };
   paseo = {
     pname = "paseo";
-    version = "0.1.103";
+    version = "0.4.0";
     src = fetchurl {
-      url = "https://github.com/getpaseo/paseo/releases/download/v0.1.103/Paseo-0.1.103-amd64.deb";
-      sha256 = "sha256-gIzyEK0hqGpnBoBoXQBgmQ5W+WjQaaQHWZtb5BlFTz8=";
+      url = "https://github.com/getpaseo/paseo/releases/download/v0.4.0/Paseo-0.4.0-amd64.deb";
+      sha256 = "sha256-QitrFeB2mMP3BuZmKwjHOZOhmUPS1Mipy3HiK/UM5iY=";
     };
   };
 }

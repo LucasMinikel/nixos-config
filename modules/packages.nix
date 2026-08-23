@@ -132,130 +132,6 @@ let
     };
   });
 
-  antigravity =
-    let
-      version = "2.2.1";
-      build = "5287492581195776";
-      runtimeDependencies = with pkgs; [
-        alsa-lib
-        at-spi2-atk
-        at-spi2-core
-        cairo
-        cups
-        dbus
-        expat
-        glib
-        gtk3
-        libdrm
-        libgbm
-        libGL
-        libxkbcommon
-        libx11
-        libxcb
-        libxcomposite
-        libxdamage
-        libxext
-        libxfixes
-        libxrandr
-        mesa
-        nspr
-        nss
-        pango
-        systemd
-      ];
-    in
-    pkgs.stdenvNoCC.mkDerivation {
-      pname = "antigravity";
-      inherit version;
-
-      src = pkgs.fetchurl {
-        url = "https://storage.googleapis.com/antigravity-public/antigravity-hub/${version}-${build}/linux-x64/Antigravity.tar.gz";
-        hash = "sha256-prp3BG+SqhziHYoMZ0lUca9MK+EbpiTl2TWCGWmyCYk=";
-      };
-
-      icon = pkgs.fetchurl {
-        url = "https://antigravity.google/assets/image/antigravity-logo.png";
-        hash = "sha256-jwuV0tIdv5MLTRAOL9xFBWc+kApzGqVupjOktZwxJ5k=";
-      };
-
-      nativeBuildInputs = with pkgs; [
-        autoPatchelfHook
-        copyDesktopItems
-        makeWrapper
-      ];
-
-      buildInputs = runtimeDependencies;
-
-      desktopItems = [
-        (pkgs.makeDesktopItem {
-          name = "antigravity";
-          desktopName = "Antigravity";
-          comment = "Experience liftoff";
-          genericName = "Agentic Platform";
-          exec = "antigravity %U";
-          icon = "antigravity";
-          categories = [
-            "Development"
-            "Utility"
-          ];
-          startupNotify = false;
-          startupWMClass = "Antigravity";
-        })
-      ];
-
-      dontConfigure = true;
-      dontBuild = true;
-
-      installPhase = ''
-        runHook preInstall
-
-        mkdir -p "$out/opt/Antigravity" "$out/bin" "$out/share/applications" "$out/share/pixmaps"
-        cp -r . "$out/opt/Antigravity/"
-
-        install -Dm644 "$icon" "$out/share/pixmaps/antigravity.png"
-
-        cat > "$out/opt/Antigravity/antigravity-launcher" <<'EOF'
-        #!/bin/sh
-        set -eu
-
-        config_dir="''${XDG_CONFIG_HOME:-$HOME/.config}/Antigravity"
-        lock_target="$(readlink "$config_dir/SingletonLock" 2>/dev/null || true)"
-        running_pid="''${lock_target##*-}"
-
-        if [ -n "$running_pid" ] && [ "$running_pid" != "$lock_target" ] && kill -0 "$running_pid" 2>/dev/null; then
-          if ${pkgs.hyprland}/bin/hyprctl clients -j 2>/dev/null | ${pkgs.ripgrep}/bin/rg -q "\"pid\": ?$running_pid"; then
-            exec "$out/opt/Antigravity/antigravity" "$@"
-          fi
-
-          ${pkgs.procps}/bin/pkill -TERM -P "$running_pid" 2>/dev/null || true
-          kill -TERM "$running_pid" 2>/dev/null || true
-          sleep 1
-          kill -KILL "$running_pid" 2>/dev/null || true
-          rm -f "$config_dir/SingletonLock" "$config_dir/SingletonSocket" "$config_dir/SingletonCookie"
-        fi
-
-        exec "$out/opt/Antigravity/antigravity" "$@"
-        EOF
-        substituteInPlace "$out/opt/Antigravity/antigravity-launcher" \
-          --replace-fail '$out' "$out"
-        chmod +x "$out/opt/Antigravity/antigravity-launcher"
-
-        makeWrapper "$out/opt/Antigravity/antigravity-launcher" "$out/bin/antigravity" \
-          --prefix LD_LIBRARY_PATH : ${lib.makeLibraryPath runtimeDependencies} \
-          --set-default NIXOS_OZONE_WL 1
-
-        runHook postInstall
-      '';
-
-      meta = {
-        description = "Google Antigravity 2.0 multi-agent orchestration platform";
-        homepage = "https://antigravity.google/product/antigravity-2";
-        license = lib.licenses.unfree;
-        mainProgram = "antigravity";
-        platforms = [ "x86_64-linux" ];
-      };
-    };
-
   paseo =
     let
       version = sources.paseo.version;
@@ -539,7 +415,6 @@ in
     vscode
     google-chrome
     navicat-mysql
-    antigravity
     paseo
     orca-ide
     claude-code

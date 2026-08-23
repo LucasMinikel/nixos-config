@@ -3,7 +3,6 @@
 {
   imports = [
     ./modules/packages.nix
-    ./modules/monitoring.nix
   ];
 
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
