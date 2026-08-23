@@ -56,7 +56,7 @@
   users.users.lucas = {
     isNormalUser = true;
     description = "Lucas Minikel";
-    extraGroups = [ "networkmanager" "wheel" "docker" ];
+    extraGroups = [ "networkmanager" "wheel" "docker" "uinput" ];
     packages = with pkgs; [];
     openssh.authorizedKeys.keys = [
       "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIDUcfWC5iYENU+lQIAtxojJZdpf1VD1eL8IQk0ZWs8zb lucas@generic"
@@ -73,6 +73,7 @@
   programs.hyprland.enable = true;
   programs.hyprland.xwayland.enable = true;
   hardware.graphics.enable = true;
+  hardware.graphics.enable32Bit = true;
 
   environment.sessionVariables = {
     NIXOS_OZONE_WL = "1";

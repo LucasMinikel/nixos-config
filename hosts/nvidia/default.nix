@@ -53,4 +53,13 @@
     openFirewall = true;
     user = "lucas";
   };
+
+  services.sunshine = {
+    enable = true;
+    autoStart = true;
+    openFirewall = true;
+    capSysAdmin = false;
+  };
+
+  systemd.user.services.sunshine.environment.LD_LIBRARY_PATH = "/run/opengl-driver/lib";
 }
