@@ -134,6 +134,8 @@
       sed -i "\\|^$rule2_v2$|d" "$target"
       sed -i "\\|^exec-once = waybar$|d" "$target"
       sed -i '\|^gesture = 3, horizontal, workspace$|d' "$target"
+      sed -i '/^\s*pseudotile = true/d' "$target"
+      sed -i '/^\s*bind = \$mainMod, J, togglesplit,/d' "$target"
       sed -i '\|^source = \$HOME/.config/hypr/conf.d/keybinds.conf$|d' "$target"
       sed -i '\|^source = \$HOME/.config/hypr/conf.d/layout.conf$|d' "$target"
       sed -i '\|^source = \$HOME/.config/hypr/conf.d/autostart.conf$|d' "$target"
