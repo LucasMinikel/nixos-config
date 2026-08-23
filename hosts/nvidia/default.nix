@@ -13,6 +13,15 @@
 
   networking.hostName = "nvidia";
 
+  services.openssh = {
+    enable = true;
+    openFirewall = true;
+    settings = {
+      PasswordAuthentication = false;
+      PermitRootLogin = "no";
+    };
+  };
+
   fileSystems."/mnt/HD-A" = {
     device = "/dev/disk/by-uuid/ea3f3a7b-cbea-4e99-ab20-8a089c50a108";
     fsType = "ext4";

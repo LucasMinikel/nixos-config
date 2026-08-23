@@ -15,6 +15,17 @@
     "127.0.0.1" = [ "laravel.test" ];
   };
 
+  services.avahi = {
+    enable = true;
+    nssmdns4 = true;
+    openFirewall = true;
+    publish = {
+      enable = true;
+      addresses = true;
+      workstation = true;
+    };
+  };
+
   time.timeZone = "America/Sao_Paulo";
 
   i18n.defaultLocale = "pt_BR.UTF-8";
@@ -47,6 +58,9 @@
     description = "Lucas Minikel";
     extraGroups = [ "networkmanager" "wheel" "docker" ];
     packages = with pkgs; [];
+    openssh.authorizedKeys.keys = [
+      "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIDUcfWC5iYENU+lQIAtxojJZdpf1VD1eL8IQk0ZWs8zb lucas@generic"
+    ];
   };
 
   programs.zsh.enable = true;
