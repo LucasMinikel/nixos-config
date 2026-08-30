@@ -47,7 +47,8 @@ window#waybar {
 #bluetooth,
 #pulseaudio,
 #battery,
-#tray {
+#tray,
+#custom-power {
     padding: 0 6px;
     margin: 3px 0;
     color: #c0caf5;
@@ -105,4 +106,12 @@ window#waybar {
 
 #battery.critical {
     color: #f7768e;
+}
+
+#custom-power {
+    color: #f7768e;
+}
+
+#custom-power:hover {
+    color: #ff9e9e;
 }

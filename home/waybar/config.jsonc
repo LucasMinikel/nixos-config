@@ -22,7 +22,8 @@
         "battery",
         "network",
         "bluetooth",
-        "tray"
+        "tray",
+        "custom/power"
     ],
     "hyprland/workspaces": {
         "disable-scroll": true,
@@ -145,5 +146,10 @@
     },
     "tray": {
         "spacing": 6
+    },
+    "custom/power": {
+        "format": "󰐥",
+        "on-click": "~/.config/hypr/scripts/session-menu.sh",
+        "tooltip": false
     }
 }
