@@ -97,6 +97,7 @@
         "device": "intel_backlight",
         "format": "{icon} {percent}%",
         "format-icons": ["󰃞", "󰃟", "󰃠"],
+        "on-click": "~/.config/waybar/scripts/brightness-menu.sh",
         "on-scroll-up": "brightnessctl set +1%",
         "on-scroll-down": "brightnessctl set 1%-",
         "tooltip": false
@@ -111,7 +112,7 @@
                 "󰕾"
             ]
         },
-        "on-click": "pavucontrol"
+        "on-click": "~/.config/waybar/scripts/volume-menu.sh"
     },
     "battery": {
         "format": "{icon} {capacity}%",
@@ -130,6 +131,7 @@
             "󰂂",
             "󰁹"
         ],
+        "on-click": "~/.config/waybar/scripts/power-menu.sh",
         "interval": 10,
         "states": {
             "warning": 30,

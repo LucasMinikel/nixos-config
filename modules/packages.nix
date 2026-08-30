@@ -404,7 +404,6 @@ in
     hyprlock
     hypridle
     intel-gpu-tools
-    pavucontrol
     brightnessctl
     mpv
     libreoffice

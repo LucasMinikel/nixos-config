@@ -70,6 +70,18 @@
     source = ./home/waybar/scripts/bluetooth-menu.sh;
     executable = true;
   };
+  home.file.".config/waybar/scripts/volume-menu.sh" = {
+    source = ./home/waybar/scripts/volume-menu.sh;
+    executable = true;
+  };
+  home.file.".config/waybar/scripts/brightness-menu.sh" = {
+    source = ./home/waybar/scripts/brightness-menu.sh;
+    executable = true;
+  };
+  home.file.".config/waybar/scripts/power-menu.sh" = {
+    source = ./home/waybar/scripts/power-menu.sh;
+    executable = true;
+  };
   home.file.".config/wofi/config".source = ./home/wofi/config;
   home.file.".config/wofi/style.css".source = ./home/wofi/style.css;
   home.file.".config/kitty/kitty.conf".source = ./home/kitty/kitty.conf;
