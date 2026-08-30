@@ -222,6 +222,11 @@
       update = "sudo nixos-rebuild switch --flake ~/nixos-config#$(hostname)";
       sail = "vendor/bin/sail";
     };
+    profileExtra = ''
+      if [ -z "$WAYLAND_DISPLAY" ] && [ "$(tty)" = "/dev/tty1" ]; then
+        exec Hyprland
+      fi
+    '';
     initContent = ''
       autoload -Uz colors vcs_info
       colors
