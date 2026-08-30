@@ -9,6 +9,7 @@ notify() {
 
 ENABLE_LABEL="󰖩 Ativar Wi-Fi"
 DISABLE_LABEL="󰖪 Desativar Wi-Fi"
+FORGET_LABEL="󰆴 Esquecer rede salva"
 declare -A SSID_BY_LABEL
 declare -A INUSE_BY_LABEL
 
@@ -42,6 +43,8 @@ build_menu() {
         [[ "$inuse" == "*" ]] && INUSE_BY_LABEL["$label"]=1
         printf '%s\n' "$label"
     done < <(nmcli -t -f IN-USE,SSID,SIGNAL,SECURITY device wifi list --rescan yes 2>/dev/null | sort -t: -k3 -rn)
+
+    printf '%s\n' "$FORGET_LABEL"
 }
 
 choice="$(build_menu | wofi "${WOFI_ARGS[@]}")"
@@ -54,6 +57,35 @@ if [[ "$choice" == "$DISABLE_LABEL" ]]; then
 elif [[ "$choice" == "$ENABLE_LABEL" ]]; then
     nmcli radio wifi on
     notify "Wi-Fi ativado"
+    exit 0
+fi
+
+if [[ "$choice" == "$FORGET_LABEL" ]]; then
+    declare -A CONN_NAME_BY_LABEL
+    menu=""
+    while IFS=: read -r name type; do
+        [[ "$type" == "802-11-wireless" ]] || continue
+        label="󰖩 $name"
+        CONN_NAME_BY_LABEL["$label"]="$name"
+        menu+="$label"$'\n'
+    done < <(nmcli -t -f NAME,TYPE connection show)
+
+    if [[ -z "$menu" ]]; then
+        notify "Nenhuma rede salva"
+        exit 0
+    fi
+
+    pick="$(printf '%s' "$menu" | wofi --dmenu --insensitive --prompt "Esquecer rede" --cache-file /dev/null)"
+    [[ -z "$pick" ]] && exit 0
+
+    conn_name="${CONN_NAME_BY_LABEL[$pick]:-}"
+    [[ -z "$conn_name" ]] && exit 0
+
+    if nmcli connection delete id "$conn_name" >/dev/null 2>&1; then
+        notify "Rede \"$conn_name\" esquecida"
+    else
+        notify "Falha ao esquecer $conn_name"
+    fi
     exit 0
 fi
 

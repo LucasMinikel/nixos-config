@@ -82,7 +82,6 @@
   virtualisation.docker.enable = true;
 
   hardware.bluetooth.enable = true;
-  services.blueman.enable = true;
 
   # Permite ler contadores de uso da GPU Intel (intel_gpu_top) sem rodar como root,
   # concedendo CAP_PERFMON só a esse binário em vez de afrouxar perf_event_paranoid globalmente.

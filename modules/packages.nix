@@ -403,8 +403,6 @@ in
     mako
     hyprlock
     hypridle
-    blueman
-    networkmanagerapplet
     intel-gpu-tools
     pavucontrol
     brightnessctl
