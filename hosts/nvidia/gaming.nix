@@ -1,15 +1,6 @@
-{ lib, pkgs, ... }:
+{ pkgs, ... }:
 
 {
-  # Coisas ligadas em configuration.nix pensando no Hyprland/dev workstation
-  # (generic) que não fazem sentido nesse host de jogos/mídia com KDE.
-  virtualisation.docker.enable = lib.mkForce false;
-  users.users.lucas.extraGroups = lib.mkForce [ "networkmanager" "wheel" "uinput" ];
-  networking.hosts = lib.mkForce { };
-  services.blueman.enable = lib.mkForce false; # KDE já tem o bluedevil
-  services.gnome.gnome-keyring.enable = lib.mkForce false; # KDE já tem o KWallet
-  security.pam.services.login.enableGnomeKeyring = lib.mkForce false;
-
   programs.steam = {
     enable = true;
     remotePlay.openFirewall = true;
