@@ -86,7 +86,7 @@
   home.file.".config/wofi/style.css".source = ./home/wofi/style.css;
   home.file.".config/kitty/kitty.conf".source = ./home/kitty/kitty.conf;
 
-  # Expor tema GTK em ~/.themes para apps como Thunar encontrarem
+  # Expor tema GTK em ~/.themes para apps GTK encontrarem
   home.file.".themes/Tokyonight-Dark".source =
     "${pkgs.tokyonight-gtk-theme}/share/themes/Tokyonight-Dark";
 
@@ -129,11 +129,20 @@
     XDG_DATA_DIRS = "${pkgs.tokyonight-gtk-theme}/share:$XDG_DATA_DIRS";
   };
 
+  xdg.desktopEntries.yazi = {
+    name = "Yazi";
+    genericName = "Gerenciador de arquivos";
+    exec = "kitty --title yazi -e yazi %U";
+    terminal = false;
+    categories = [ "System" "FileTools" "FileManager" "ConsoleOnly" ];
+    mimeType = [ "inode/directory" ];
+  };
+
   xdg.mimeApps = {
     enable = true;
     defaultApplications = {
-      "inode/directory" = [ "thunar.desktop" ];
-      "application/x-gnome-saved-search" = [ "thunar.desktop" ];
+      "inode/directory" = [ "yazi.desktop" ];
+      "application/x-gnome-saved-search" = [ "yazi.desktop" ];
     };
   };
 

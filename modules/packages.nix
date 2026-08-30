@@ -391,7 +391,7 @@ in
     gnumake
     btop
     kitty
-    thunar
+    yazi
     awww
     waybar
     wofi
