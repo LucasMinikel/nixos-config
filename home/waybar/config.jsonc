@@ -18,10 +18,10 @@
         "custom/gpu",
         "memory",
         "backlight",
-        "network",
-        "bluetooth",
         "pulseaudio",
         "battery",
+        "network",
+        "bluetooth",
         "tray"
     ],
     "hyprland/workspaces": {
@@ -69,11 +69,11 @@
         "interval": 5
     },
     "bluetooth": {
-        "format": "󰂯",
+        "format": "",
         "format-disabled": "󰂲",
         "format-off": "󰂲",
-        "format-connected": "󰂱 {device_alias}",
-        "format-connected-battery": "󰂱 {device_alias} {device_battery_percentage}%",
+        "format-connected": " {device_alias}",
+        "format-connected-battery": " {device_alias} {device_battery_percentage}%",
         "tooltip-format": "{controller_alias}\t{controller_address}",
         "tooltip-format-connected": "{controller_alias}\t{controller_address}\n\n{device_enumerate}",
         "tooltip-format-enumerate-connected": "{device_alias}\t{device_address}",
@@ -96,7 +96,11 @@
     "backlight": {
         "device": "intel_backlight",
         "format": "{icon} {percent}%",
-        "format-icons": ["󰃞", "󰃟", "󰃠"],
+        "format-icons": [
+            "󰃞",
+            "󰃟",
+            "󰃠"
+        ],
         "on-click": "~/.config/waybar/scripts/brightness-menu.sh",
         "on-scroll-up": "brightnessctl set +1%",
         "on-scroll-down": "brightnessctl set 1%-",
