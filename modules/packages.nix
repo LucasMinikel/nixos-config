@@ -399,6 +399,7 @@ in
     grim
     slurp
     wl-clipboard
+    cliphist
     libnotify
     mako
     hyprlock

@@ -13,6 +13,10 @@
     source = ./home/hypr/scripts/wallpaper.sh;
     executable = true;
   };
+  home.file.".config/hypr/scripts/clipboard-menu.sh" = {
+    source = ./home/hypr/scripts/clipboard-menu.sh;
+    executable = true;
+  };
   home.file.".config/hypr/scripts/screenshot-copy.sh" = {
     executable = true;
     text = ''
