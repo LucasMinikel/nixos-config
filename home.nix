@@ -203,6 +203,13 @@
     fi
   '';
 
+  # Depois de um switch, o Hyprland às vezes recalcula a escala do monitor
+  # sozinho (auto-scale) e ignora a regra fixa do layout.conf até um reload
+  # manual. Isso reaplica a config na sessão que já está rodando.
+  home.activation.reloadHyprland = lib.hm.dag.entryAfter [ "ensureHyprKeybindSource" ] ''
+    ${pkgs.hyprland}/bin/hyprctl reload > /dev/null 2>&1 || true
+  '';
+
   programs.zsh = {
     enable = true;
     enableCompletion = true;
