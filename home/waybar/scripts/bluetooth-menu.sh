@@ -7,7 +7,7 @@ notify() {
     notify-send -a "Bluetooth" "$@" >/dev/null 2>&1 || true
 }
 
-ENABLE_LABEL=" Ativar Bluetooth"
+ENABLE_LABEL="󰂱 Ativar Bluetooth"
 DISABLE_LABEL="󰂲 Desativar Bluetooth"
 PAIR_LABEL="󰂰 Procurar dispositivo novo"
 declare -A MAC_BY_LABEL
@@ -35,10 +35,10 @@ build_menu() {
             connected=1
         fi
 
-        local icon=""
+        local icon="󰂱"
         local mark=""
         if [[ -n "$connected" ]]; then
-            icon=""
+            icon="󰂱"
             mark=" (conectado)"
         fi
 
@@ -76,7 +76,7 @@ if [[ "$choice" == "$PAIR_LABEL" ]]; then
         mac="${BASH_REMATCH[1]}"
         name="${BASH_REMATCH[2]}"
         [[ "$paired_macs" == *" $mac "* ]] && continue
-        label=" $name"
+        label="󰂱 $name"
         NEWMAC_BY_LABEL["$label"]="$mac"
         menu+="$label"$'\n'
     done < <(bluetoothctl devices)
