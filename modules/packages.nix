@@ -415,8 +415,6 @@ in
     nerd-fonts.jetbrains-mono
     vscode
     google-chrome
-    lutris
-    moonlight-qt
     navicat-mysql
     paseo
     orca-ide

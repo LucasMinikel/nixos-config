@@ -7,6 +7,8 @@
 
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
 
+  documentation.nixos.enable = false;
+
   networking.networkmanager.enable = true;
   networking.networkmanager.wifi.powersave = false;
   networking.networkmanager.insertNameservers = [ "1.1.1.1" "9.9.9.9" ];
