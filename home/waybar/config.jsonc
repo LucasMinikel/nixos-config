@@ -14,18 +14,24 @@
         "clock"
     ],
     "modules-right": [
-        "cpu",
-        "custom/gpu",
-        "memory",
-        "disk",
-        "backlight",
-        "pulseaudio",
-        "battery",
-        "group/connectivity"
+        "group/hardware",
+        "group/controls"
     ],
-    "group/connectivity": {
+    "group/hardware": {
         "orientation": "horizontal",
         "modules": [
+            "cpu",
+            "custom/gpu",
+            "memory",
+            "disk"
+        ]
+    },
+    "group/controls": {
+        "orientation": "horizontal",
+        "modules": [
+            "backlight",
+            "pulseaudio",
+            "battery",
             "network",
             "bluetooth",
             "tray",

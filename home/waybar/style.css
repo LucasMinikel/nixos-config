@@ -18,23 +18,16 @@ window#waybar {
     padding: 0 5px;
 }
 
-#connectivity {
+#hardware,
+#controls {
     background: rgba(26, 27, 38, 0.92);
     border: 1px solid rgba(65, 72, 104, 0.8);
     border-radius: 8px;
     padding: 0 5px;
 }
 
-#cpu,
-#custom-gpu,
-#memory,
-#disk,
-#backlight,
-#pulseaudio,
-#battery {
-    background: rgba(26, 27, 38, 0.92);
-    border: 1px solid rgba(65, 72, 104, 0.8);
-    border-radius: 8px;
+#hardware {
+    margin-right: 4px;
 }
 
 #workspaces button {
