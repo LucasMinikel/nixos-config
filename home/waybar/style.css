@@ -18,7 +18,6 @@ window#waybar {
     padding: 0 5px;
 }
 
-#metrics,
 #connectivity {
     background: rgba(26, 27, 38, 0.92);
     border: 1px solid rgba(65, 72, 104, 0.8);
@@ -26,8 +25,16 @@ window#waybar {
     padding: 0 5px;
 }
 
-#metrics {
-    margin-right: 4px;
+#cpu,
+#custom-gpu,
+#memory,
+#disk,
+#backlight,
+#pulseaudio,
+#battery {
+    background: rgba(26, 27, 38, 0.92);
+    border: 1px solid rgba(65, 72, 104, 0.8);
+    border-radius: 8px;
 }
 
 #workspaces button {
@@ -53,6 +60,7 @@ window#waybar {
 #cpu,
 #custom-gpu,
 #memory,
+#disk,
 #backlight,
 #network,
 #bluetooth,
@@ -81,6 +89,10 @@ window#waybar {
 
 #memory {
     color: #9ece6a;
+}
+
+#disk {
+    color: #7aa2f7;
 }
 
 #backlight {

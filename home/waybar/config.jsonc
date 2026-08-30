@@ -14,20 +14,15 @@
         "clock"
     ],
     "modules-right": [
-        "group/metrics",
+        "cpu",
+        "custom/gpu",
+        "memory",
+        "disk",
+        "backlight",
+        "pulseaudio",
+        "battery",
         "group/connectivity"
     ],
-    "group/metrics": {
-        "orientation": "horizontal",
-        "modules": [
-            "cpu",
-            "custom/gpu",
-            "memory",
-            "backlight",
-            "pulseaudio",
-            "battery"
-        ]
-    },
     "group/connectivity": {
         "orientation": "horizontal",
         "modules": [
@@ -106,6 +101,12 @@
     "memory": {
         "format": "󰍛 {percentage}%",
         "interval": 2
+    },
+    "disk": {
+        "format": " {percentage_used}%",
+        "path": "/",
+        "interval": 30,
+        "tooltip-format": "{used} usados de {total} ({percentage_used}%)"
     },
     "backlight": {
         "device": "intel_backlight",
