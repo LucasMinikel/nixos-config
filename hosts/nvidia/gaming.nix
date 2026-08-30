@@ -49,7 +49,9 @@
       ]
     ))
     pcsx2
-    rpcs3
+    # rpcs3 (PS3): fora por enquanto — não tem binário em cache, precisa
+    # compilar do zero clonando o repo do RPCS3 (com submódulos) via
+    # GitHub. Reative quando a rede/instalação estiver mais estável.
     dolphin-emu
     cemu
     ppsspp
