@@ -36,6 +36,14 @@ in
 
   programs.gamemode.enable = true;
 
+  # programs.gamemode só deixa a lib de 64 bits visível globalmente. Jogos
+  # 32 bits via Wine/Lutris (como o Codename Eagle) tentam abrir a versão
+  # de 32 bits ("cannot open shared object file: libgamemode.so.0") mesmo
+  # fora do wrapper gamemoderun — expõe as duas nas libs que Wine/Steam
+  # enxergam.
+  hardware.graphics.extraPackages = [ pkgs.gamemode.lib ];
+  hardware.graphics.extraPackages32 = [ pkgs.pkgsi686Linux.gamemode.lib ];
+
   services.displayManager.sddm.enable = true;
   services.displayManager.sddm.wayland.enable = true;
   services.desktopManager.plasma6.enable = true;
