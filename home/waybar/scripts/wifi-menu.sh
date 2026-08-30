@@ -10,6 +10,7 @@ notify() {
 ENABLE_LABEL="󰖩 Ativar Wi-Fi"
 DISABLE_LABEL="󰖪 Desativar Wi-Fi"
 FORGET_LABEL="󰆴 Esquecer rede salva"
+HIDDEN_LABEL="󰐕 Conectar a rede oculta"
 declare -A SSID_BY_LABEL
 declare -A INUSE_BY_LABEL
 
@@ -45,6 +46,7 @@ build_menu() {
     done < <(nmcli -t -f IN-USE,SSID,SIGNAL,SECURITY device wifi list --rescan yes 2>/dev/null | sort -t: -k3 -rn)
 
     printf '%s\n' "$FORGET_LABEL"
+    printf '%s\n' "$HIDDEN_LABEL"
 }
 
 choice="$(build_menu | wofi "${WOFI_ARGS[@]}")"
@@ -85,6 +87,26 @@ if [[ "$choice" == "$FORGET_LABEL" ]]; then
         notify "Rede \"$conn_name\" esquecida"
     else
         notify "Falha ao esquecer $conn_name"
+    fi
+    exit 0
+fi
+
+if [[ "$choice" == "$HIDDEN_LABEL" ]]; then
+    hidden_ssid="$(wofi --dmenu --prompt "Nome da rede oculta" --cache-file /dev/null <<< "")"
+    [[ -z "$hidden_ssid" ]] && exit 0
+
+    hidden_password="$(wofi --dmenu --password --prompt "Senha (vazio se aberta)" --cache-file /dev/null <<< "")"
+
+    if [[ -n "$hidden_password" ]]; then
+        ok=$(nmcli device wifi connect "$hidden_ssid" password "$hidden_password" hidden yes >/dev/null 2>&1 && echo 1 || echo 0)
+    else
+        ok=$(nmcli device wifi connect "$hidden_ssid" hidden yes >/dev/null 2>&1 && echo 1 || echo 0)
+    fi
+
+    if [[ "$ok" == "1" ]]; then
+        notify "Conectado a $hidden_ssid"
+    else
+        notify "Falha ao conectar a $hidden_ssid"
     fi
     exit 0
 fi

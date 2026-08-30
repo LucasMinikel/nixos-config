@@ -17,6 +17,10 @@
     source = ./home/hypr/scripts/clipboard-menu.sh;
     executable = true;
   };
+  home.file.".config/hypr/scripts/session-menu.sh" = {
+    source = ./home/hypr/scripts/session-menu.sh;
+    executable = true;
+  };
   home.file.".config/hypr/scripts/screenshot-copy.sh" = {
     executable = true;
     text = ''

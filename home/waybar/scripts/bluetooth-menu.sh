@@ -12,6 +12,7 @@ DISABLE_LABEL="󰂲 Desativar Bluetooth"
 PAIR_LABEL="󰂰 Procurar dispositivo novo"
 declare -A MAC_BY_LABEL
 declare -A CONNECTED_BY_LABEL
+declare -A REMOVE_MAC_BY_LABEL
 
 powered() {
     bluetoothctl show | grep -q "Powered: yes"
@@ -46,6 +47,10 @@ build_menu() {
         MAC_BY_LABEL["$label"]="$mac"
         [[ -n "$connected" ]] && CONNECTED_BY_LABEL["$label"]=1
         printf '%s\n' "$label"
+
+        local remove_label="󰆴 Remover $name"
+        REMOVE_MAC_BY_LABEL["$remove_label"]="$mac"
+        printf '%s\n' "$remove_label"
     done < <(bluetoothctl devices Paired)
 
     printf '%s\n' "$PAIR_LABEL"
@@ -104,6 +109,16 @@ if [[ "$choice" == "$PAIR_LABEL" ]]; then
         fi
     else
         notify "Falha ao parear"
+    fi
+    exit 0
+fi
+
+remove_mac="${REMOVE_MAC_BY_LABEL[$choice]:-}"
+if [[ -n "$remove_mac" ]]; then
+    if bluetoothctl remove "$remove_mac" >/dev/null 2>&1; then
+        notify "Dispositivo removido"
+    else
+        notify "Falha ao remover dispositivo"
     fi
     exit 0
 fi
