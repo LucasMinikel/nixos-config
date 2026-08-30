@@ -12,7 +12,7 @@
   outputs = { nixpkgs, home-manager, ... }:
     let
       system = "x86_64-linux";
-      mkHost = hostModule: nixpkgs.lib.nixosSystem {
+      mkHost = { hostModule, extraHomeModules ? [ ] }: nixpkgs.lib.nixosSystem {
         inherit system;
         modules = [
           hostModule
@@ -21,13 +21,18 @@
             home-manager.useGlobalPkgs = true;
             home-manager.useUserPackages = true;
             home-manager.backupFileExtension = "backup";
-            home-manager.users.lucas = import ./home.nix;
+            home-manager.users.lucas = {
+              imports = [ ./home.nix ] ++ extraHomeModules;
+            };
           }
         ];
       };
     in
     {
-      nixosConfigurations.generic = mkHost ./hosts/generic;
-      nixosConfigurations.nvidia = mkHost ./hosts/nvidia;
+      nixosConfigurations.generic = mkHost {
+        hostModule = ./hosts/generic;
+        extraHomeModules = [ ./home-hyprland.nix ];
+      };
+      nixosConfigurations.nvidia = mkHost { hostModule = ./hosts/nvidia; };
     };
 }

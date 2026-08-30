@@ -70,8 +70,6 @@
   services.gnome.gnome-keyring.enable = true;
   security.pam.services.login.enableGnomeKeyring = true;
 
-  programs.hyprland.enable = true;
-  programs.hyprland.xwayland.enable = true;
   hardware.graphics.enable = true;
   hardware.graphics.enable32Bit = true;
 

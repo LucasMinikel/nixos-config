@@ -4,6 +4,7 @@
   imports = [
     ../../configuration.nix
     ./hardware-configuration.nix
+    ./workstation.nix
   ];
 
   networking.hostName = "generic";

@@ -5,6 +5,7 @@
     ../../configuration.nix
     ./hardware-configuration.nix
     ../../modules/nvidia.nix
+    ./gaming.nix
   ];
 
   boot.loader.grub.enable = true;
