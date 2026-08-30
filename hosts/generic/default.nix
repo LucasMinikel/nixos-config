@@ -5,6 +5,7 @@
     ../../configuration.nix
     ./hardware-configuration.nix
     ./workstation.nix
+    ../../modules/claude-code.nix
   ];
 
   networking.hostName = "generic";

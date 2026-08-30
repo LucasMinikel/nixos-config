@@ -5,6 +5,7 @@
     ../../configuration.nix
     ./hardware-configuration.nix
     ../../modules/nvidia.nix
+    ../../modules/claude-code.nix
     ./gaming.nix
   ];
 

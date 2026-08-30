@@ -111,3 +111,39 @@ Servicos importantes:
 Erros da ultima rebuild:
 
     journalctl -b -p err --no-pager | tail -n 100
+
+## 8) Servidor de jogos/midia (nvidia) - primeira instalacao
+
+Esse perfil (Steam Big Picture via gamescope, KDE, retrogaming) ainda esta so
+na branch `nvidia-gaming-media-server`, nao foi mergeada na `main`.
+
+Numa maquina nvidia formatada do zero com NixOS minimal:
+
+    nix-shell -p git
+    git clone -b nvidia-gaming-media-server https://github.com/LucasMinikel/nixos-config.git ~/nixos-config
+    cd ~/nixos-config
+    sudo nixos-generate-config --show-hardware-config > hosts/nvidia/hardware-configuration.nix
+
+Como a maquina foi formatada, os discos tem UUID novo. Confira/ajuste com
+`lsblk -f` ou `blkid` em `hosts/nvidia/default.nix`:
+
+    boot.loader.grub.device
+    fileSystems."/mnt/HD-A" e "/mnt/HD-B"
+
+Primeiro switch, com flakes habilitado na mao (o minimal ainda nao tem isso
+configurado por padrao):
+
+    sudo nixos-rebuild switch --flake .#nvidia --extra-experimental-features "nix-command flakes"
+    sudo reboot
+
+Depois do primeiro boot ja sobe direto no Steam Big Picture (gamescope) via
+SDDM com autologin. Passos manuais que ficam de fora do Nix:
+
+    sudo passwd lucas   # login local, hoje so tem chave SSH configurada
+    # logar na Steam
+    # abrir o Steam ROM Manager uma vez e apontar pra /home/lucas/Discos/HD-B/ROMs
+    # colocar as BIOS em /home/lucas/Discos/HD-B/ROMs/bios
+    # conferir Plex e parear Sunshine/Moonlight
+
+Dai em diante o alias `update` funciona normal, ja que
+`networking.hostName = "nvidia"` bate com `$(hostname)`.
