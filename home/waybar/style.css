@@ -48,7 +48,8 @@ window#waybar {
 #pulseaudio,
 #battery,
 #tray,
-#custom-power {
+#custom-power,
+#custom-clipboard {
     padding: 0 6px;
     margin: 3px 0;
     color: #c0caf5;
@@ -114,4 +115,8 @@ window#waybar {
 
 #custom-power:hover {
     color: #ff9e9e;
+}
+
+#custom-clipboard {
+    color: #bb9af7;
 }

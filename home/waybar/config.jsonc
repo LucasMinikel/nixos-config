@@ -23,6 +23,7 @@
         "network",
         "bluetooth",
         "tray",
+        "custom/clipboard",
         "custom/power"
     ],
     "hyprland/workspaces": {
@@ -150,6 +151,11 @@
     "custom/power": {
         "format": "󰐥",
         "on-click": "~/.config/hypr/scripts/session-menu.sh",
+        "tooltip": false
+    },
+    "custom/clipboard": {
+        "format": "󰆏",
+        "on-click": "~/.config/hypr/scripts/clipboard-menu.sh",
         "tooltip": false
     }
 }
