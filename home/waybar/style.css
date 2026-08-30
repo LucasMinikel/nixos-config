@@ -11,12 +11,23 @@ window#waybar {
 }
 
 .modules-left,
-.modules-center,
-.modules-right {
+.modules-center {
     background: rgba(26, 27, 38, 0.92);
     border: 1px solid rgba(65, 72, 104, 0.8);
     border-radius: 8px;
     padding: 0 5px;
+}
+
+#metrics,
+#connectivity {
+    background: rgba(26, 27, 38, 0.92);
+    border: 1px solid rgba(65, 72, 104, 0.8);
+    border-radius: 8px;
+    padding: 0 5px;
+}
+
+#metrics {
+    margin-right: 4px;
 }
 
 #workspaces button {

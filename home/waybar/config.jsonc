@@ -14,18 +14,30 @@
         "clock"
     ],
     "modules-right": [
-        "cpu",
-        "custom/gpu",
-        "memory",
-        "backlight",
-        "pulseaudio",
-        "battery",
-        "network",
-        "bluetooth",
-        "tray",
-        "custom/clipboard",
-        "custom/power"
+        "group/metrics",
+        "group/connectivity"
     ],
+    "group/metrics": {
+        "orientation": "horizontal",
+        "modules": [
+            "cpu",
+            "custom/gpu",
+            "memory",
+            "backlight",
+            "pulseaudio",
+            "battery"
+        ]
+    },
+    "group/connectivity": {
+        "orientation": "horizontal",
+        "modules": [
+            "network",
+            "bluetooth",
+            "tray",
+            "custom/clipboard",
+            "custom/power"
+        ]
+    },
     "hyprland/workspaces": {
         "disable-scroll": true,
         "all-outputs": true,
