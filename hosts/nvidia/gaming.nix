@@ -15,8 +15,10 @@
   services.displayManager.sddm.wayland.enable = true;
   services.desktopManager.plasma6.enable = true;
 
-  services.displayManager.autoLogin.enable = true;
-  services.displayManager.autoLogin.user = "lucas";
+  # Sem autologin: o botão "Switch to Desktop" do Steam Big Picture depende
+  # do steamos-session-select (SteamOS/Bazzite), que não existe aqui — sem
+  # autologin, sair da sessão Steam sempre volta pra tela do SDDM, onde dá
+  # pra escolher "Steam" ou "Plasma (X11)" manualmente.
   services.displayManager.defaultSession = "steam";
 
   systemd.tmpfiles.rules = [
