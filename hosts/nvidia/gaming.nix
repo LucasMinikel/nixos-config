@@ -1,5 +1,25 @@
 { pkgs, ... }:
 
+let
+  # Steam Big Picture chama "steamos-session-select <alvo>" pro botão
+  # "Switch to Desktop" — isso só existe no SteamOS/Bazzite, então no NixOS
+  # puro o botão fica travado esperando um binário que não existe. Aqui a
+  # gente só encerra a sessão gamescope (equivalente a "Exit Steam"), o que
+  # devolve pra tela do SDDM em poucos segundos, de onde dá pra entrar no
+  # Plasma. Não é a troca instantânea do Bazzite (que depende de uma
+  # arquitetura de sessão bem mais complexa), mas para de travar.
+  steamos-session-select = pkgs.writeShellScriptBin "steamos-session-select" ''
+    case "''${1:-}" in
+      plasma|plasma.desktop|desktop)
+        ${pkgs.procps}/bin/pkill -x gamescope || true
+        ;;
+      *)
+        exit 0
+        ;;
+    esac
+  '';
+in
+
 {
   programs.steam = {
     enable = true;
@@ -26,7 +46,9 @@
     "d /home/lucas/Discos/HD-B/ROMs/bios 0755 lucas users -"
   ];
 
-  environment.systemPackages = with pkgs; [
+  environment.systemPackages = [
+    steamos-session-select
+  ] ++ (with pkgs; [
     # Windows compat
     wineWow64Packages.stable
     winetricks
@@ -42,5 +64,5 @@
     # do GitHub, o que trava a instalação se a rede/DNS do instalador não
     # estiver 100%. Primeiro deixa o desktop (Steam+KDE+Wine/Lutris/Bottles)
     # de pé, depois reativa isso com a maquina ja instalada e rede estavel.
-  ];
+  ]);
 }
