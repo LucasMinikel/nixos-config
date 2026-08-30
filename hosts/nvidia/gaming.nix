@@ -52,6 +52,8 @@ in
   ];
 
   environment.systemPackages = with pkgs; [
+    firefox
+
     # Windows compat
     wineWow64Packages.stable
     winetricks
