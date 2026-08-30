@@ -43,6 +43,8 @@ window#waybar {
 #custom-gpu,
 #memory,
 #backlight,
+#network,
+#bluetooth,
 #pulseaudio,
 #battery,
 #tray {
@@ -70,6 +72,23 @@ window#waybar {
 
 #backlight {
     color: #ff9e64;
+}
+
+#network {
+    color: #0db9d7;
+}
+
+#network.disconnected {
+    color: #f7768e;
+}
+
+#bluetooth {
+    color: #89ddff;
+}
+
+#bluetooth.disabled,
+#bluetooth.off {
+    color: #565f89;
 }
 
 #pulseaudio {

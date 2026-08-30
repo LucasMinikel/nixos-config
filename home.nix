@@ -53,6 +53,9 @@
       notify "Screenshot copied" "Image copied to clipboard."
     '';
   };
+  home.file.".config/hypr/hypridle.conf".source = ./home/hypr/hypridle.conf;
+  home.file.".config/hypr/hyprlock.conf".source = ./home/hypr/hyprlock.conf;
+  home.file.".config/mako/config".source = ./home/mako/config;
   home.file.".config/waybar/config".source = ./home/waybar/config.jsonc;
   home.file.".config/waybar/style.css".source = ./home/waybar/style.css;
   home.file.".config/waybar/scripts/gpu-usage.sh" = {

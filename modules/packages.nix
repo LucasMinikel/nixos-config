@@ -400,6 +400,9 @@ in
     slurp
     wl-clipboard
     libnotify
+    mako
+    hyprlock
+    hypridle
     blueman
     networkmanagerapplet
     pavucontrol
