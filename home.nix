@@ -62,6 +62,14 @@
     source = ./home/waybar/scripts/gpu-usage.sh;
     executable = true;
   };
+  home.file.".config/waybar/scripts/wifi-menu.sh" = {
+    source = ./home/waybar/scripts/wifi-menu.sh;
+    executable = true;
+  };
+  home.file.".config/waybar/scripts/bluetooth-menu.sh" = {
+    source = ./home/waybar/scripts/bluetooth-menu.sh;
+    executable = true;
+  };
   home.file.".config/wofi/config".source = ./home/wofi/config;
   home.file.".config/wofi/style.css".source = ./home/wofi/style.css;
   home.file.".config/kitty/kitty.conf".source = ./home/kitty/kitty.conf;

@@ -84,5 +84,15 @@
   hardware.bluetooth.enable = true;
   services.blueman.enable = true;
 
+  # Permite ler contadores de uso da GPU Intel (intel_gpu_top) sem rodar como root,
+  # concedendo CAP_PERFMON só a esse binário em vez de afrouxar perf_event_paranoid globalmente.
+  security.wrappers.intel_gpu_top = {
+    source = "${pkgs.intel-gpu-tools}/bin/intel_gpu_top";
+    capabilities = "cap_perfmon=+ep";
+    owner = "root";
+    group = "root";
+    permissions = "u+rx,g+x,o+x";
+  };
+
   system.stateVersion = "25.11";
 }
