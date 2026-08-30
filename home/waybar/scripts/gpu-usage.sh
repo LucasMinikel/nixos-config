@@ -7,17 +7,13 @@ if command -v intel_gpu_top >/dev/null 2>&1; then
       let raw = "";
       process.stdin.on("data", (c) => (raw += c));
       process.stdin.on("end", () => {
-        const objects = raw
-          .split(/(?<=\})\s*(?=\{)/)
-          .map((s) => {
-            try {
-              return JSON.parse(s);
-            } catch {
-              return null;
-            }
-          })
-          .filter(Boolean);
-        const last = objects[objects.length - 1];
+        let samples;
+        try {
+          samples = JSON.parse(raw);
+        } catch {
+          process.exit(1);
+        }
+        const last = samples[samples.length - 1];
         const engines = last && last.engines;
         if (!engines) process.exit(1);
         const render = engines["Render/3D"] || engines["Render/3D/0"];
