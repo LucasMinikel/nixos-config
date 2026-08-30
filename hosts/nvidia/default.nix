@@ -17,7 +17,7 @@
 
   networking.hostName = "nvidia";
   networking.networkmanager.enable = true;
-  networking.nameservers = [ "1.1.1.1" "9.9.9.9" ];
+  networking.nameservers = [ "8.8.8.8" "8.8.4.4" ];
 
   services.avahi = {
     enable = true;
