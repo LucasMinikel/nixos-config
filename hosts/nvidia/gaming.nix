@@ -34,31 +34,11 @@
     protonup-ng
     mangohud
 
-    # Retrogaming: sem frontend, lançado pela Steam via Steam ROM Manager
-    (retroarch.withCores (
-      cores: with cores; [
-        genesis-plus-gx
-        snes9x
-        beetle-psx
-        pcsx_rearmed
-        mupen64plus
-        mgba
-        flycast
-        melonds
-        ppsspp
-      ]
-    ))
-    pcsx2
-    # rpcs3 (PS3): fora por enquanto — não tem binário em cache, precisa
-    # compilar do zero clonando o repo do RPCS3 (com submódulos) via
-    # GitHub. Reative quando a rede/instalação estiver mais estável.
-    dolphin-emu
-    cemu
-    ppsspp
-    xemu
-    flycast
-    mgba
-    melonds
-    steam-rom-manager
+    # Retrogaming (RetroArch + emuladores + Steam ROM Manager): fora por
+    # enquanto. Vários desses (cores do RetroArch, rpcs3, etc.) não têm
+    # binário em cache e precisam compilar do zero clonando repositorios
+    # do GitHub, o que trava a instalação se a rede/DNS do instalador não
+    # estiver 100%. Primeiro deixa o desktop (Steam+KDE+Wine/Lutris/Bottles)
+    # de pé, depois reativa isso com a maquina ja instalada e rede estavel.
   ];
 }
