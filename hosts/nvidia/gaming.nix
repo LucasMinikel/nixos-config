@@ -27,6 +27,11 @@ in
     gamescopeSession.enable = true;
     extraCompatPackages = [ pkgs.proton-ge-bin ];
     protontricks.enable = true;
+    # O Steam roda dentro do próprio sandbox FHS (bubblewrap) dele — pacotes
+    # em environment.systemPackages não aparecem lá dentro. É por isso que o
+    # steamos-session-select precisa entrar via extraPackages, não como
+    # systemPackage comum.
+    extraPackages = [ steamos-session-select ];
   };
 
   programs.gamemode.enable = true;
@@ -46,9 +51,7 @@ in
     "d /home/lucas/Discos/HD-B/ROMs/bios 0755 lucas users -"
   ];
 
-  environment.systemPackages = [
-    steamos-session-select
-  ] ++ (with pkgs; [
+  environment.systemPackages = with pkgs; [
     # Windows compat
     wineWow64Packages.stable
     winetricks
@@ -64,5 +67,5 @@ in
     # do GitHub, o que trava a instalação se a rede/DNS do instalador não
     # estiver 100%. Primeiro deixa o desktop (Steam+KDE+Wine/Lutris/Bottles)
     # de pé, depois reativa isso com a maquina ja instalada e rede estavel.
-  ]);
+  ];
 }
