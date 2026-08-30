@@ -17,6 +17,7 @@
 
   networking.hostName = "nvidia";
   networking.networkmanager.enable = true;
+  networking.networkmanager.dns = "none"; # não deixa o NM injetar o DNS do roteador no resolv.conf
   networking.nameservers = [ "8.8.8.8" "8.8.4.4" ];
 
   services.avahi = {
