@@ -29,11 +29,11 @@
     "group/controls": {
         "orientation": "horizontal",
         "modules": [
-            "backlight",
-            "pulseaudio",
-            "battery",
             "network",
+            "pulseaudio",
             "bluetooth",
+            "battery",
+            "backlight",
             "tray",
             "custom/clipboard",
             "custom/power"
