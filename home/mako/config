@@ -3,8 +3,8 @@ layer=overlay
 anchor=top-right
 margin=8
 padding=12
-width=340
-height=110
+width=460
+height=130
 border-size=2
 border-radius=10
 default-timeout=6000
@@ -15,7 +15,7 @@ markup=true
 font=JetBrainsMono Nerd Font 11
 
 background-color=#1a1b26e6
-text-color=#c0caf5
+text-color=#a9b1d6
 border-color=#7aa2f7
 progress-color=over #24283b
 
