@@ -71,6 +71,10 @@
 
   services.gnome.gnome-keyring.enable = true;
   security.pam.services.login.enableGnomeKeyring = true;
+  # Com autologin no tty1, a senha nunca é digitada no console (o pam do
+  # "login" nunca dispara), então quem precisa destravar o keyring agora é
+  # o hyprlock, que é onde a senha real é digitada.
+  security.pam.services.hyprlock.enableGnomeKeyring = true;
 
   programs.hyprland.enable = true;
   programs.hyprland.xwayland.enable = true;
