@@ -416,6 +416,7 @@ in
     codex-latest
     docker-compose
     lazydocker
+    wiremix
     nerd-fonts.jetbrains-mono
     vscode
     google-chrome

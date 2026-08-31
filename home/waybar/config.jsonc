@@ -137,7 +137,8 @@
                 "󰕾"
             ]
         },
-        "on-click": "~/.config/waybar/scripts/volume-menu.sh"
+        "on-click": "kitty --class wiremix --title wiremix -e wiremix",
+        "on-click-right": "~/.config/waybar/scripts/volume-menu.sh"
     },
     "battery": {
         "format": "{icon} {capacity}%",
