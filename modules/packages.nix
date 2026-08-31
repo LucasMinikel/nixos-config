@@ -415,6 +415,7 @@ in
     nodejs
     codex-latest
     docker-compose
+    lazydocker
     nerd-fonts.jetbrains-mono
     vscode
     google-chrome
