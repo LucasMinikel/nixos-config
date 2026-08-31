@@ -110,6 +110,7 @@ let
             pkgs.libGL
             pkgs.libx11
             pkgs.libgpg-error
+            pkgs.libsecret
             pkgs.libselinux
             pkgs.libxcb
             pkgs.libxkbcommon
@@ -117,6 +118,7 @@ let
             pkgs.pango
           ]
         }:$out/lib \
+        --prefix PATH : ${lib.makeBinPath [ pkgs.gnome-keyring ]} \
         --set QT_PLUGIN_PATH $out/plugins \
         --set QT_QPA_PLATFORM xcb \
         --set QT_STYLE_OVERRIDE Fusion \
