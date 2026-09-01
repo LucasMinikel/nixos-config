@@ -421,6 +421,8 @@ in
     vscode
     google-chrome
     moonlight-qt
+    wineWowPackages.stable
+    winetricks
     navicat-mysql
     paseo
     orca-ide
