@@ -420,6 +420,7 @@ in
     nerd-fonts.jetbrains-mono
     vscode
     google-chrome
+    moonlight-qt
     navicat-mysql
     paseo
     orca-ide
