@@ -69,7 +69,7 @@ let
     pname = "navicat-mysql";
     version = "17.3.9";
 
-    src = pkgs.appimageTools.extractType2 {
+    src = pkgs.appimageTools.extract {
       inherit (finalAttrs) pname version;
       src = pkgs.fetchurl {
         url = "https://dn.navicat.com/download/navicat17-mysql-en-x86_64.AppImage";
