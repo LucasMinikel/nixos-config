@@ -1,5 +1,8 @@
 { config, lib, pkgs, ... }:
 
+let
+  tokyonight-gtk-theme = pkgs.callPackage ./pkgs/tokyonight-gtk-theme.nix { };
+in
 {
   home.username = "lucas";
   home.homeDirectory = "/home/lucas";
@@ -96,13 +99,13 @@
 
   # Expor tema GTK em ~/.themes para apps GTK encontrarem
   home.file.".themes/Tokyonight-Dark".source =
-    "${pkgs.tokyonight-gtk-theme}/share/themes/Tokyonight-Dark";
+    "${tokyonight-gtk-theme}/share/themes/Tokyonight-Dark";
 
   gtk = {
     enable = true;
     theme = {
       name = "Tokyonight-Dark";
-      package = pkgs.tokyonight-gtk-theme;
+      package = tokyonight-gtk-theme;
     };
     iconTheme = {
       name = "Papirus-Dark";
@@ -134,7 +137,7 @@
     GTK_THEME = "Tokyonight-Dark";
     XCURSOR_THEME = "Bibata-Modern-Classic";
     XCURSOR_SIZE = "24";
-    XDG_DATA_DIRS = "${pkgs.tokyonight-gtk-theme}/share:$XDG_DATA_DIRS";
+    XDG_DATA_DIRS = "${tokyonight-gtk-theme}/share:$XDG_DATA_DIRS";
   };
 
   xdg.desktopEntries.yazi = {
