@@ -171,7 +171,7 @@ in
       la   = "ls -A --color=auto";
       ls   = "ls --color=auto";
       grep = "grep --color=auto";
-      update = "sudo nixos-rebuild switch --flake ~/nixos-config#$(hostname)";
+      update = "sudo nixos-rebuild switch --flake ~/projects/nixos-config#$(hostname)";
       sail = "vendor/bin/sail";
     };
     profileExtra = ''
