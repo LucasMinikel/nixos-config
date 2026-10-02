@@ -1,8 +1,3 @@
-[orca-ide]
-src.github = "stablyai/orca"
-src.prefix = "v"
-fetch.url = "https://github.com/stablyai/orca/releases/download/v$ver/orca-ide_$ver_amd64.deb"
-
 [paseo]
 src.github = "getpaseo/paseo"
 src.prefix = "v"

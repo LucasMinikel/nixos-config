@@ -8,42 +8,34 @@
 {
   claude-code = {
     pname = "claude-code";
-    version = "2.1.268";
+    version = "2.1.287";
     src = fetchurl {
-      url = "https://storage.googleapis.com/claude-code-dist-86c565f3-f756-42ad-8dfa-d59b1c096819/claude-code-releases/2.1.268/linux-x64/claude";
-      sha256 = "sha256-lpGit715ZxLKjP+44y5U/3/EW2YlQCMxcaFqlKBCVlM=";
+      url = "https://storage.googleapis.com/claude-code-dist-86c565f3-f756-42ad-8dfa-d59b1c096819/claude-code-releases/2.1.287/linux-x64/claude";
+      sha256 = "sha256-OSBImlEJz/V4aho5LCUndAj/Irx5bV7bnBamDloXGPA=";
     };
   };
   codex = {
     pname = "codex";
-    version = "0.154.0";
+    version = "0.160.0";
     src = fetchurl {
-      url = "https://registry.npmjs.org/@openai/codex/-/codex-0.154.0.tgz";
-      sha256 = "sha256-hwZj1OZQQt01gwXpaiKvWHCKKDF81OdKhaqGfGn1hZs=";
+      url = "https://registry.npmjs.org/@openai/codex/-/codex-0.160.0.tgz";
+      sha256 = "sha256-NzUXdo6RLutQVAJK6SFeLJChQglXtm/hNO90WgCUjUo=";
     };
   };
   codex-linux-x64 = {
     pname = "codex-linux-x64";
-    version = "0.154.0";
+    version = "0.160.0";
     src = fetchurl {
-      url = "https://registry.npmjs.org/@openai/codex/-/codex-0.154.0-linux-x64.tgz";
-      sha256 = "sha256-4nyDpJ5gMWhe5/lWwSqtXxZITTqAGB3T/qkw+5azgys=";
-    };
-  };
-  orca-ide = {
-    pname = "orca-ide";
-    version = "1.4.200";
-    src = fetchurl {
-      url = "https://github.com/stablyai/orca/releases/download/v1.4.200/orca-ide_1.4.200_amd64.deb";
-      sha256 = "sha256-URgn1b2bbVIFq84XSYYdaYVU7yHdnAklX6knV40CYeY=";
+      url = "https://registry.npmjs.org/@openai/codex/-/codex-0.160.0-linux-x64.tgz";
+      sha256 = "sha256-N6QdYcM5kYK4xye3cJDMehVmvYSdDwkHCgu8b+xMWNw=";
     };
   };
   paseo = {
     pname = "paseo";
-    version = "0.8.0";
+    version = "0.10.3";
     src = fetchurl {
-      url = "https://github.com/getpaseo/paseo/releases/download/v0.8.0/Paseo-0.8.0-amd64.deb";
-      sha256 = "sha256-pH0EjDE4DFKZnltyUTxwxLjsYtreUdb1poL7xR8qqZo=";
+      url = "https://github.com/getpaseo/paseo/releases/download/v0.10.3/Paseo-0.10.3-amd64.deb";
+      sha256 = "sha256-Sk+nTG1VJDUyxXMXxLn/sm4nSXFK9OT5vffOiVCGFwI=";
     };
   };
 }

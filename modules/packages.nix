@@ -118,7 +118,6 @@ let
             pkgs.pango
           ]
         }:$out/lib \
-        --prefix PATH : ${lib.makeBinPath [ pkgs.gnome-keyring ]} \
         --set QT_PLUGIN_PATH $out/plugins \
         --set QT_QPA_PLATFORM xcb \
         --set QT_STYLE_OVERRIDE Fusion \
@@ -234,106 +233,6 @@ let
       };
     };
 
-  orca-ide =
-    let
-      version = sources.orca-ide.version;
-      runtimeDependencies = with pkgs; [
-        alsa-lib
-        at-spi2-core
-        cairo
-        cups
-        dbus
-        expat
-        glib
-        gtk3
-        libayatana-appindicator
-        libcap_ng
-        libdrm
-        libgbm
-        libGL
-        libnotify
-        libsecret
-        libuuid
-        libx11
-        libxcb
-        libxcomposite
-        libxdamage
-        libxext
-        libxfixes
-        libxkbcommon
-        libxrandr
-        libXtst
-        mesa
-        nspr
-        nss
-        pango
-        libseccomp
-        systemd
-      ];
-    in
-    pkgs.stdenvNoCC.mkDerivation {
-      pname = "orca-ide";
-      inherit version;
-
-      src = sources.orca-ide.src;
-
-      nativeBuildInputs = with pkgs; [
-        autoPatchelfHook
-        dpkg
-        makeWrapper
-      ];
-
-      buildInputs = runtimeDependencies;
-
-      dontConfigure = true;
-      dontBuild = true;
-
-      unpackPhase = ''
-        runHook preUnpack
-        dpkg-deb --fsys-tarfile "$src" | tar --no-same-owner --no-same-permissions -xf -
-        runHook postUnpack
-      '';
-
-      installPhase = ''
-        runHook preInstall
-
-        mkdir -p "$out/bin" "$out/lib" "$out/share"
-        cp -r opt/Orca "$out/lib/"
-
-        if [ -d usr/share/applications ]; then
-          cp -r usr/share/applications "$out/share/"
-        fi
-
-        if [ -d usr/share/icons ]; then
-          cp -r usr/share/icons "$out/share/"
-        fi
-
-        substituteInPlace "$out/share/applications/orca-ide.desktop" \
-          --replace-fail "/opt/Orca/orca-ide" "$out/bin/orca-ide"
-
-        makeWrapper "$out/lib/Orca/orca-ide" "$out/bin/orca-ide" \
-          --add-flags --no-sandbox \
-          --prefix LD_LIBRARY_PATH : ${lib.makeLibraryPath runtimeDependencies}:$out/lib/Orca \
-          --prefix PATH : ${lib.makeBinPath [
-            pkgs.glib
-            pkgs.gnome-keyring
-            pkgs.trash-cli
-            pkgs.xdg-utils
-          ]} \
-          --set-default NIXOS_OZONE_WL 1
-
-        runHook postInstall
-      '';
-
-      meta = {
-        description = "Agent Development Environment for running coding agents in parallel";
-        homepage = "https://www.onorca.dev/";
-        license = lib.licenses.mit;
-        mainProgram = "orca-ide";
-        platforms = [ "x86_64-linux" ];
-      };
-    };
-
   claude-code =
     let
       version = sources.claude-code.version;
@@ -393,7 +292,6 @@ in
     gnumake
     btop
     kitty
-    yazi
     awww
     waybar
     wofi
@@ -420,10 +318,8 @@ in
     nerd-fonts.jetbrains-mono
     vscode
     google-chrome
-    moonlight-qt
     navicat-mysql
     paseo
-    orca-ide
     claude-code
   ];
 }

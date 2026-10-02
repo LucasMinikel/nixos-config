@@ -7,6 +7,14 @@
 
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
 
+  # Sem isso as gerações antigas nunca são removidas e o /nix/store só cresce.
+  nix.gc = {
+    automatic = true;
+    dates = "weekly";
+    options = "--delete-older-than 14d";
+  };
+  nix.optimise.automatic = true;
+
   documentation.nixos.enable = false;
 
   networking.networkmanager.enable = true;
@@ -86,6 +94,15 @@
   };
 
   virtualisation.docker.enable = true;
+
+  programs.thunar = {
+    enable = true;
+    plugins = with pkgs; [
+      thunar-archive-plugin
+      thunar-volman
+    ];
+  };
+  services.tumbler.enable = true;
 
   hardware.bluetooth.enable = true;
 

@@ -8,10 +8,7 @@ in
   home.homeDirectory = "/home/lucas";
   home.stateVersion = "25.11";
 
-  home.file.".config/hypr/conf.d/keybinds.conf".source = ./home/hypr/conf.d/keybinds.conf;
-  home.file.".config/hypr/conf.d/layout.conf".source = ./home/hypr/conf.d/layout.conf;
-  home.file.".config/hypr/conf.d/autostart.conf".source = ./home/hypr/conf.d/autostart.conf;
-  home.file.".config/hypr/conf.d/env.conf".source = ./home/hypr/conf.d/env.conf;
+  home.file.".config/hypr/hyprland.lua".source = ./home/hypr/hyprland.lua;
   home.file.".config/hypr/scripts/wallpaper.sh" = {
     source = ./home/hypr/scripts/wallpaper.sh;
     executable = true;
@@ -141,76 +138,18 @@ in
     XDG_DATA_DIRS = "${tokyonight-gtk-theme}/share:$XDG_DATA_DIRS";
   };
 
-  xdg.desktopEntries.yazi = {
-    name = "Yazi";
-    genericName = "Gerenciador de arquivos";
-    exec = "kitty --title yazi -e yazi %U";
-    terminal = false;
-    categories = [ "System" "FileTools" "FileManager" "ConsoleOnly" ];
-    mimeType = [ "inode/directory" ];
-  };
-
   xdg.mimeApps = {
     enable = true;
     defaultApplications = {
-      "inode/directory" = [ "yazi.desktop" ];
-      "application/x-gnome-saved-search" = [ "yazi.desktop" ];
+      "inode/directory" = [ "thunar.desktop" ];
+      "application/x-gnome-saved-search" = [ "thunar.desktop" ];
     };
   };
 
-  home.activation.ensureHyprKeybindSource = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
-    target="$HOME/.config/hypr/hyprland.conf"
-    keybinds_line="source = $HOME/.config/hypr/conf.d/keybinds.conf"
-    layout_line="source = $HOME/.config/hypr/conf.d/layout.conf"
-    autostart_line="source = $HOME/.config/hypr/conf.d/autostart.conf"
-    env_line="source = $HOME/.config/hypr/conf.d/env.conf"
-    rule1_v1='windowrule = suppressevent maximize, class:.*'
-    rule1_v2='windowrulev2 = suppressevent maximize, class:.*'
-    rule2_v1='windowrule = nofocus,class:^$,title:^$,xwayland:1,floating:1,fullscreen:0,pinned:0'
-    rule2_v1_spaced='windowrule = nofocus, class:^$, title:^$, xwayland:1, floating:1, fullscreen:0, pinned:0'
-    rule2_v2='windowrulev2 = nofocus,class:^$,title:^$,xwayland:1,floating:1,fullscreen:0,pinned:0'
-
-    if [ -f "$target" ]; then
-      sed -i "\\|^$rule1_v1$|d" "$target"
-      sed -i "\\|^$rule1_v2$|d" "$target"
-      sed -i "\\|^$rule2_v1$|d" "$target"
-      sed -i "\\|^$rule2_v1_spaced$|d" "$target"
-      sed -i "\\|^$rule2_v2$|d" "$target"
-      sed -i "\\|^exec-once = waybar$|d" "$target"
-      sed -i '\|^gesture = 3, horizontal, workspace$|d' "$target"
-      sed -i '/^\s*pseudotile = true/d' "$target"
-      sed -i '/^\s*bind = \$mainMod, J, togglesplit,/d' "$target"
-      sed -i '\|^source = \$HOME/.config/hypr/conf.d/keybinds.conf$|d' "$target"
-      sed -i '\|^source = \$HOME/.config/hypr/conf.d/layout.conf$|d' "$target"
-      sed -i '\|^source = \$HOME/.config/hypr/conf.d/autostart.conf$|d' "$target"
-      sed -i '\|^source = \$HOME/.config/hypr/conf.d/env.conf$|d' "$target"
-      sed -i '\|^source = ~/.config/hypr/conf.d/keybinds.conf$|d' "$target"
-      sed -i '\|^source = ~/.config/hypr/conf.d/layout.conf$|d' "$target"
-      sed -i '\|^source = ~/.config/hypr/conf.d/autostart.conf$|d' "$target"
-      sed -i '\|^source = ~/.config/hypr/conf.d/env.conf$|d' "$target"
-      sed -i "\\|^$keybinds_line$|d" "$target"
-      sed -i "\\|^$layout_line$|d" "$target"
-      sed -i "\\|^$autostart_line$|d" "$target"
-      sed -i "\\|^$env_line$|d" "$target"
-      printf '%s\n%s\n%s\n%s\n' \
-        "$keybinds_line" \
-        "$layout_line" \
-        "$autostart_line" \
-        "$env_line" >> "$target"
-    else
-      mkdir -p "$HOME/.config/hypr"
-      printf '%s\n%s\n%s\n%s\n' \
-        "$keybinds_line" \
-        "$layout_line" \
-        "$autostart_line" \
-        "$env_line" > "$target"
-    fi
-  '';
-
   # Depois de um switch, o Hyprland às vezes recalcula a escala do monitor
-  # sozinho (auto-scale) e ignora a regra fixa do layout.conf até um reload
+  # sozinho (auto-scale) e ignora a regra fixa do hyprland.lua até um reload
   # manual. Isso reaplica a config na sessão que já está rodando.
-  home.activation.reloadHyprland = lib.hm.dag.entryAfter [ "ensureHyprKeybindSource" ] ''
+  home.activation.reloadHyprland = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
     ${pkgs.hyprland}/bin/hyprctl reload > /dev/null 2>&1 || true
   '';
 

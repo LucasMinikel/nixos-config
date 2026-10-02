@@ -9,6 +9,7 @@
   networking.hostName = "generic";
 
   boot.loader.systemd-boot.enable = lib.mkDefault true;
+  boot.loader.systemd-boot.configurationLimit = 10;
   boot.loader.efi.canTouchEfiVariables = lib.mkDefault true;
 
   services.power-profiles-daemon.enable = true;
