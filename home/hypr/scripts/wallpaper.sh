@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 set -uo pipefail
 
-WALLPAPER_DIR="$HOME/nixos-config/wallpapers"
+WALLPAPER_DIR="$HOME/.config/hypr/wallpapers"
 DEFAULT_WALLPAPER="$WALLPAPER_DIR/comic_original.png"
 
 if [[ -f "$DEFAULT_WALLPAPER" ]]; then

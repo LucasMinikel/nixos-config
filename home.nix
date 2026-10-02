@@ -61,6 +61,8 @@ in
       notify "Screenshot copied" "Image copied to clipboard."
     '';
   };
+  # Papéis de parede vêm do repo via Nix store, sem depender de ~/nixos-config existir
+  home.file.".config/hypr/wallpapers".source = ./wallpapers;
   home.file.".config/hypr/hypridle.conf".source = ./home/hypr/hypridle.conf;
   home.file.".config/hypr/hyprlock.conf".source = ./home/hypr/hyprlock.conf;
   home.file.".config/mako/config".source = ./home/mako/config;
@@ -205,6 +207,20 @@ in
     shellAliases = {
       sail = "vendor/bin/sail";
     };
+  };
+
+  programs.git = {
+    enable = true;
+    settings.user = {
+      name = "LucasMinikel";
+      email = "lucasminikel.m@gmail.com";
+    };
+  };
+
+  # Credential helper usa o gh do PATH, então não quebra quando o store path muda
+  programs.gh = {
+    enable = true;
+    gitCredentialHelper.enable = true;
   };
 
   programs.home-manager.enable = true;
