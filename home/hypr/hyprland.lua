@@ -58,7 +58,7 @@ hl.gesture({ fingers = 3, direction = "up", action = "fullscreen", mode = "maxim
 -- Autostart
 hl.on("hyprland.start", function()
     hl.exec_cmd("gnome-keyring-daemon --start --components=pkcs11,secrets,ssh")
-    hl.exec_cmd("dbus-update-activation-environment --systemd --all")
+    hl.exec_cmd("dbus-update-activation-environment --systemd --all && systemctl --user start hyprland-session.target")
     hl.exec_cmd("hyprlock")
     hl.exec_cmd("systemctl --user start sunshine.service")
     hl.exec_cmd("waybar")
@@ -69,6 +69,14 @@ hl.on("hyprland.start", function()
     hl.exec_cmd("awww-daemon --no-cache")
     hl.exec_cmd(home .. "/.config/hypr/scripts/wallpaper.sh")
 end)
+
+-- Window rules
+hl.window_rule({
+    name  = "suppress-maximize-events",
+    match = { class = ".*" },
+
+    suppress_event = "maximize",
+})
 
 -- Keybinds
 local scripts = home .. "/.config/hypr/scripts/"

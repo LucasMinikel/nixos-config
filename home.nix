@@ -140,6 +140,18 @@ in
     XDG_DATA_DIRS = "${tokyonight-gtk-theme}/share:$XDG_DATA_DIRS";
   };
 
+  # O Hyprland é iniciado direto do tty (sem UWSM), então nada ativa o
+  # graphical-session.target. Sem ele o xdg-desktop-portal não sobe e o
+  # compartilhamento de tela (Meet etc.) falha.
+  systemd.user.targets.hyprland-session = {
+    Unit = {
+      Description = "Hyprland compositor session";
+      BindsTo = [ "graphical-session.target" ];
+      Wants = [ "graphical-session-pre.target" ];
+      After = [ "graphical-session-pre.target" ];
+    };
+  };
+
   xdg.mimeApps = {
     enable = true;
     defaultApplications = {
