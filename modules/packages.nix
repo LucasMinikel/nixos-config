@@ -307,6 +307,7 @@ in
     intel-gpu-tools
     brightnessctl
     mpv
+    vlc
     libreoffice
     qbittorrent
     gh
