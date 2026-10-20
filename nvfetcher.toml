@@ -17,3 +17,10 @@ fetch.url = "https://registry.npmjs.org/@openai/codex/-/codex-$ver-linux-x64.tgz
 src.webpage = "https://registry.npmjs.org/@anthropic-ai/claude-code/latest"
 src.regex = '"version":"([\d.]+)"'
 fetch.url = "https://storage.googleapis.com/claude-code-dist-86c565f3-f756-42ad-8dfa-d59b1c096819/claude-code-releases/$ver/linux-x64/claude"
+
+[t3code]
+src.github_tag = "pingdotgg/t3code"
+src.include_regex = 'v.*-nightly\..*'
+src.use_max_tag = true
+src.prefix = "v"
+fetch.url = "https://github.com/pingdotgg/t3code/releases/download/v$ver/T3-Code-$ver-amd64.deb"

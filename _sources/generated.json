@@ -58,5 +58,20 @@
             "url": "https://github.com/getpaseo/paseo/releases/download/v0.10.3/Paseo-0.10.3-amd64.deb"
         },
         "version": "0.10.3"
+    },
+    "t3code": {
+        "cargoLock": null,
+        "date": null,
+        "extract": null,
+        "name": "t3code",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "name": null,
+            "sha256": "sha256-arXTTL/KAJnBexoc/ofhuRBJ4B86ZoJPWlV105MxR8E=",
+            "type": "url",
+            "url": "https://github.com/pingdotgg/t3code/releases/download/v0.1.1-nightly.20261019.3360/T3-Code-0.1.1-nightly.20261019.3360-amd64.deb"
+        },
+        "version": "0.1.1-nightly.20261019.3360"
     }
 }
