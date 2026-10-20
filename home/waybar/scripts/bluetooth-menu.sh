@@ -56,7 +56,12 @@ build_menu() {
     printf '%s\n' "$PAIR_LABEL"
 }
 
-choice="$(build_menu | wofi "${WOFI_ARGS[@]}")"
+# build_menu preenche arrays associativos, então não pode rodar num pipe
+# (subshell). Redireciona para um arquivo para manter as variáveis no shell atual.
+menu_file="$(mktemp)"
+trap 'rm -f "$menu_file"' EXIT
+build_menu > "$menu_file"
+choice="$(wofi "${WOFI_ARGS[@]}" < "$menu_file")"
 [[ -z "$choice" ]] && exit 0
 
 if [[ "$choice" == "$DISABLE_LABEL" ]]; then
