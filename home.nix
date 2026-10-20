@@ -167,6 +167,20 @@ in
     ${pkgs.hyprland}/bin/hyprctl reload > /dev/null 2>&1 || true
   '';
 
+  # O daemon do Paseo reescreve ~/.paseo/config.json, então ele não pode ser um
+  # symlink do Nix store. Mescla só a chave "features" (ditado/voz em pt-BR) e
+  # preserva o resto do arquivo.
+  home.activation.paseoSpeech = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
+    config="$HOME/.paseo/config.json"
+    mkdir -p "$HOME/.paseo"
+    [ -f "$config" ] || echo '{"version":1}' > "$config"
+    tmp="$(mktemp)"
+    ${pkgs.jq}/bin/jq --slurpfile features ${./home/paseo/features.json} \
+      '.features = ((.features // {}) * $features[0])' "$config" > "$tmp" \
+      && install -m 600 "$tmp" "$config"
+    rm -f "$tmp"
+  '';
+
   programs.zsh = {
     enable = true;
     enableCompletion = true;

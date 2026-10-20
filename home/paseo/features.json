@@ -1,0 +1,8 @@
+{
+  "dictation": {
+    "stt": { "provider": "local", "model": "parakeet-tdt-0.6b-v3-int8" }
+  },
+  "voiceMode": {
+    "stt": { "provider": "local", "model": "parakeet-tdt-0.6b-v3-int8" }
+  }
+}
