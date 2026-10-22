@@ -38,12 +38,4 @@
       sha256 = "sha256-Sk+nTG1VJDUyxXMXxLn/sm4nSXFK9OT5vffOiVCGFwI=";
     };
   };
-  t3code = {
-    pname = "t3code";
-    version = "0.1.1-nightly.20261019.3360";
-    src = fetchurl {
-      url = "https://github.com/pingdotgg/t3code/releases/download/v0.1.1-nightly.20261019.3360/T3-Code-0.1.1-nightly.20261019.3360-amd64.deb";
-      sha256 = "sha256-arXTTL/KAJnBexoc/ofhuRBJ4B86ZoJPWlV105MxR8E=";
-    };
-  };
 }

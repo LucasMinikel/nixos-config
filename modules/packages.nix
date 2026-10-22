@@ -133,107 +133,42 @@ let
     };
   });
 
-  # Bibliotecas que os apps Electron empacotados em .deb precisam em runtime
-  electronRuntimeDependencies = with pkgs; [
-    alsa-lib
-    at-spi2-core
-    cairo
-    cups
-    dbus
-    expat
-    glib
-    gtk3
-    libayatana-appindicator
-    libcap_ng
-    libdrm
-    libgbm
-    libGL
-    libnotify
-    libsecret
-    libuuid
-    libx11
-    libxcb
-    libxcomposite
-    libxdamage
-    libxext
-    libxfixes
-    libxkbcommon
-    libxrandr
-    libXtst
-    mesa
-    nspr
-    nss
-    pango
-    libseccomp
-    systemd
-  ];
-
-  t3code =
-    let
-      version = sources.t3code.version;
-    in
-    pkgs.stdenvNoCC.mkDerivation {
-      pname = "t3code";
-      inherit version;
-
-      src = sources.t3code.src;
-
-      nativeBuildInputs = with pkgs; [
-        autoPatchelfHook
-        dpkg
-        makeWrapper
-      ];
-
-      buildInputs = electronRuntimeDependencies;
-
-      # O app embute a variante musl de um módulo nativo (ffi-rs) que não é
-      # usada em glibc; ignora a dependência para o autoPatchelf não falhar.
-      autoPatchelfIgnoreMissingDeps = [ "libc.musl-x86_64.so.1" ];
-
-      dontConfigure = true;
-      dontBuild = true;
-
-      unpackPhase = ''
-        runHook preUnpack
-        dpkg-deb --fsys-tarfile "$src" | tar --no-same-owner --no-same-permissions -xf -
-        runHook postUnpack
-      '';
-
-      installPhase = ''
-        runHook preInstall
-
-        mkdir -p "$out/bin" "$out/lib" "$out/share"
-        cp -r "opt/T3 Code (Nightly)" "$out/lib/t3code"
-
-        cp -r usr/share/applications "$out/share/"
-        cp -r usr/share/icons "$out/share/"
-
-        substituteInPlace "$out/share/applications/t3code.desktop" \
-          --replace-fail '"/opt/T3 Code (Nightly)/t3code"' "$out/bin/t3code"
-
-        makeWrapper "$out/lib/t3code/t3code" "$out/bin/t3code" \
-          --add-flags --no-sandbox \
-          --prefix LD_LIBRARY_PATH : ${lib.makeLibraryPath electronRuntimeDependencies}:$out/lib/t3code \
-          --prefix PATH : ${lib.makeBinPath [
-            pkgs.xdg-utils
-          ]} \
-          --set-default NIXOS_OZONE_WL 1
-
-        runHook postInstall
-      '';
-
-      meta = {
-        description = "Desktop app for coding agents (nightly channel)";
-        homepage = "https://t3.codes/";
-        mainProgram = "t3code";
-        platforms = [ "x86_64-linux" ];
-      };
-    };
-
   paseo =
     let
       version = sources.paseo.version;
-      runtimeDependencies = electronRuntimeDependencies;
+      runtimeDependencies = with pkgs; [
+        alsa-lib
+        at-spi2-core
+        cairo
+        cups
+        dbus
+        expat
+        glib
+        gtk3
+        libayatana-appindicator
+        libcap_ng
+        libdrm
+        libgbm
+        libGL
+        libnotify
+        libsecret
+        libuuid
+        libx11
+        libxcb
+        libxcomposite
+        libxdamage
+        libxext
+        libxfixes
+        libxkbcommon
+        libxrandr
+        libXtst
+        mesa
+        nspr
+        nss
+        pango
+        libseccomp
+        systemd
+      ];
     in
     pkgs.stdenvNoCC.mkDerivation {
       pname = "paseo";
@@ -386,7 +321,6 @@ in
     google-chrome
     navicat-mysql
     paseo
-    t3code
     claude-code
   ];
 }
