@@ -73,7 +73,7 @@ let
       inherit (finalAttrs) pname version;
       src = pkgs.fetchurl {
         url = "https://dn.navicat.com/download/navicat17-mysql-en-x86_64.AppImage";
-        hash = "sha256-sbRs6TLFQIw9DHAOu3wSGc8po//I7/EjLNBwdnbL9Ys=";
+        hash = "sha256-4DEkdT53yXbHgVA9h9pzghO+N2UxlJRCxp5Oy9P68cM=";
       };
     };
 
