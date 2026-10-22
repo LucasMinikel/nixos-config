@@ -312,7 +312,6 @@ in
     qbittorrent
     gh
     nodejs
-    codex-latest
     docker-compose
     lazydocker
     wiremix
