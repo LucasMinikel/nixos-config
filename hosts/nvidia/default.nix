@@ -14,15 +14,6 @@
 
   networking.hostName = "nvidia";
 
-  services.openssh = {
-    enable = true;
-    openFirewall = true;
-    settings = {
-      PasswordAuthentication = false;
-      PermitRootLogin = "no";
-    };
-  };
-
   fileSystems."/mnt/HD-A" = {
     device = "/dev/disk/by-uuid/ea3f3a7b-cbea-4e99-ab20-8a089c50a108";
     fsType = "ext4";
@@ -48,19 +39,4 @@
     options = [ "bind" "nofail" "x-gvfs-show" ];
     depends = [ "/mnt/HD-B" ];
   };
-
-  services.plex = {
-    enable = true;
-    openFirewall = true;
-    user = "lucas";
-  };
-
-  services.sunshine = {
-    enable = true;
-    autoStart = true;
-    openFirewall = true;
-    capSysAdmin = false;
-  };
-
-  systemd.user.services.sunshine.environment.LD_LIBRARY_PATH = "/run/opengl-driver/lib";
 }

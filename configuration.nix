@@ -77,6 +77,10 @@
 
   users.users.lucas.shell = pkgs.zsh;
 
+  # Login automático no tty1; o Hyprland é iniciado pelo .zprofile e já
+  # abre travado (hyprlock), então a senha real continua sendo exigida ali.
+  services.getty.autologinUser = "lucas";
+
   services.gnome.gnome-keyring.enable = true;
   security.pam.services.login.enableGnomeKeyring = true;
   # Com autologin no tty1, a senha nunca é digitada no console (o pam do
@@ -105,6 +109,30 @@
   services.tumbler.enable = true;
 
   hardware.bluetooth.enable = true;
+
+  services.openssh = {
+    enable = true;
+    openFirewall = true;
+    settings = {
+      PasswordAuthentication = false;
+      PermitRootLogin = "no";
+    };
+  };
+
+  services.plex = {
+    enable = true;
+    openFirewall = true;
+    user = "lucas";
+  };
+
+  services.sunshine = {
+    enable = true;
+    autoStart = true;
+    openFirewall = true;
+    capSysAdmin = false;
+  };
+
+  systemd.user.services.sunshine.environment.LD_LIBRARY_PATH = "/run/opengl-driver/lib";
 
   # Permite ler contadores de uso da GPU Intel (intel_gpu_top) sem rodar como root,
   # concedendo CAP_PERFMON só a esse binário em vez de afrouxar perf_event_paranoid globalmente.
