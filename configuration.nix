@@ -110,30 +110,6 @@
 
   hardware.bluetooth.enable = true;
 
-  services.openssh = {
-    enable = true;
-    openFirewall = true;
-    settings = {
-      PasswordAuthentication = false;
-      PermitRootLogin = "no";
-    };
-  };
-
-  services.plex = {
-    enable = true;
-    openFirewall = true;
-    user = "lucas";
-  };
-
-  services.sunshine = {
-    enable = true;
-    autoStart = true;
-    openFirewall = true;
-    capSysAdmin = false;
-  };
-
-  systemd.user.services.sunshine.environment.LD_LIBRARY_PATH = "/run/opengl-driver/lib";
-
   # Permite ler contadores de uso da GPU Intel (intel_gpu_top) sem rodar como root,
   # concedendo CAP_PERFMON só a esse binário em vez de afrouxar perf_event_paranoid globalmente.
   security.wrappers.intel_gpu_top = {
