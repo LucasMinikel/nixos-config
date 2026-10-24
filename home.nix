@@ -95,6 +95,7 @@ in
   home.file.".config/wofi/config".source = ./home/wofi/config;
   home.file.".config/wofi/style.css".source = ./home/wofi/style.css;
   home.file.".config/kitty/kitty.conf".source = ./home/kitty/kitty.conf;
+  home.file.".config/opencode/opencode.json".source = ./home/opencode/opencode.json;
 
   # Expor tema GTK em ~/.themes para apps GTK encontrarem
   home.file.".themes/Tokyonight-Dark".source =

@@ -321,5 +321,6 @@ in
     navicat-mysql
     paseo
     claude-code
+    opencode
   ];
 }
