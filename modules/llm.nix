@@ -19,6 +19,9 @@
     settings = {
       hf-repo = "unsloth/Qwen3-Coder-30B-A3B-Instruct-GGUF:UD-Q4_K_XL";
       alias = "qwen3-coder";
+      # A 8080 já é usada por outro serviço no generic, e o túnel de lá
+      # repete a mesma porta.
+      port = 8012;
       ctx-size = 32768;
       n-gpu-layers = 99;
       n-cpu-moe = 48;

@@ -23,7 +23,7 @@
   };
 
   # Túnel até o llama.cpp do nvidia, para o opencode daqui usar o mesmo
-  # http://127.0.0.1:8080 que ele usa lá.
+  # http://127.0.0.1:8012 que ele usa lá.
   systemd.user.services.llama-tunnel = {
     description = "SSH tunnel to llama.cpp on nvidia";
     wantedBy = [ "default.target" ];
@@ -34,7 +34,7 @@
         "-o ExitOnForwardFailure=yes"
         "-o ServerAliveInterval=30"
         "-o ServerAliveCountMax=3"
-        "-L 127.0.0.1:8080:127.0.0.1:8080"
+        "-L 127.0.0.1:8012:127.0.0.1:8012"
         "lucas@nvidia"
       ];
       Restart = "always";
