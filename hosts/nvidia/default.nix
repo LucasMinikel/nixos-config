@@ -14,6 +14,19 @@
 
   networking.hostName = "nvidia";
 
+  # O Paseo do generic usa este host via SSH (ssh -W até o daemon em
+  # 127.0.0.1:6767), então o daemon em si continua fechado para a rede.
+  services.openssh = {
+    enable = true;
+    openFirewall = true;
+    settings = {
+      PasswordAuthentication = false;
+      KbdInteractiveAuthentication = false;
+      PermitRootLogin = "no";
+      AllowUsers = [ "lucas" ];
+    };
+  };
+
   fileSystems."/mnt/HD-A" = {
     device = "/dev/disk/by-uuid/ea3f3a7b-cbea-4e99-ab20-8a089c50a108";
     fsType = "ext4";
