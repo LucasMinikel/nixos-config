@@ -5,7 +5,6 @@
     ../../configuration.nix
     ./hardware-configuration.nix
     ../../modules/nvidia.nix
-    ../../modules/llm.nix
   ];
 
   boot.loader.grub.enable = true;
