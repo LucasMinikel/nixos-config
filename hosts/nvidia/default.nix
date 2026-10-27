@@ -5,6 +5,7 @@
     ../../configuration.nix
     ./hardware-configuration.nix
     ../../modules/nvidia.nix
+    ../../modules/gaming.nix
   ];
 
   boot.loader.grub.enable = true;
@@ -27,29 +28,16 @@
     };
   };
 
+  # x-gvfs-show põe cada disco uma vez na lateral do Thunar.
   fileSystems."/mnt/HD-A" = {
-    device = "/dev/disk/by-uuid/8418348318347670";
-    fsType = "ntfs3";
-    options = [ "nofail" "uid=1000" "gid=100" "umask=022" ];
+    device = "/dev/disk/by-label/HD-A";
+    fsType = "ext4";
+    options = [ "nofail" "x-gvfs-show" ];
   };
 
   fileSystems."/mnt/HD-B" = {
-    device = "/dev/disk/by-uuid/885038E95038E01C";
-    fsType = "ntfs3";
-    options = [ "nofail" "uid=1000" "gid=100" "umask=022" ];
-  };
-
-  fileSystems."/home/lucas/Discos/HD-A" = {
-    device = "/mnt/HD-A";
-    fsType = "none";
-    options = [ "bind" "nofail" "x-gvfs-show" ];
-    depends = [ "/mnt/HD-A" ];
-  };
-
-  fileSystems."/home/lucas/Discos/HD-B" = {
-    device = "/mnt/HD-B";
-    fsType = "none";
-    options = [ "bind" "nofail" "x-gvfs-show" ];
-    depends = [ "/mnt/HD-B" ];
+    device = "/dev/disk/by-label/HD-B";
+    fsType = "ext4";
+    options = [ "nofail" "x-gvfs-show" ];
   };
 }
