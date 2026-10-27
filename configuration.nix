@@ -107,6 +107,8 @@
     ];
   };
   services.tumbler.enable = true;
+  # Lixeira, montagem de discos/pendrives e entradas x-gvfs-show na lateral do Thunar.
+  services.gvfs.enable = true;
 
   hardware.bluetooth.enable = true;
 

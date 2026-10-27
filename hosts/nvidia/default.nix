@@ -28,15 +28,15 @@
   };
 
   fileSystems."/mnt/HD-A" = {
-    device = "/dev/disk/by-uuid/ea3f3a7b-cbea-4e99-ab20-8a089c50a108";
-    fsType = "ext4";
-    options = [ "nofail" ];
+    device = "/dev/disk/by-uuid/8418348318347670";
+    fsType = "ntfs3";
+    options = [ "nofail" "uid=1000" "gid=100" "umask=022" ];
   };
 
   fileSystems."/mnt/HD-B" = {
-    device = "/dev/disk/by-uuid/debba3c8-86c5-42f0-8ae7-544e675b40c4";
-    fsType = "ext4";
-    options = [ "nofail" ];
+    device = "/dev/disk/by-uuid/885038E95038E01C";
+    fsType = "ntfs3";
+    options = [ "nofail" "uid=1000" "gid=100" "umask=022" ];
   };
 
   fileSystems."/home/lucas/Discos/HD-A" = {
