@@ -30,9 +30,21 @@ in
   # hid-sony/hid-playstation, e as regras de udev da Steam e do Sunshine
   # liberam hidraw/uhid (giroscópio, touchpad e a emulação no Moonlight).
 
+  # O cache.nixos.org não distribui builds com CUDA; sem este cache o
+  # Sunshine com CUDA seria compilado localmente.
+  nix.settings = {
+    extra-substituters = [ "https://cache.nixos-cuda.org" ];
+    extra-trusted-public-keys = [
+      "cache.nixos-cuda.org:74DUi4Ye579gUqzH4ziL9IyiJBlDpMRn9MBN8oNan9M="
+    ];
+  };
+
   # Streaming dos jogos para TV, celular e o generic via Moonlight.
   services.sunshine = {
     enable = true;
+    # Sem CUDA o NVENC converte as cores por software (GPU -> RAM -> GPU), o
+    # que deixava os pretos acinzentados no cliente e somava latência.
+    package = pkgs.sunshine.override { cudaSupport = true; };
     autoStart = true;
     openFirewall = true;
     capSysAdmin = false;
