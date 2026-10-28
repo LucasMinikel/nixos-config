@@ -48,6 +48,9 @@ in
     autoStart = true;
     openFirewall = true;
     capSysAdmin = false;
+    # Com CUDA o Sunshine também sonda NvFBC e o portal RemoteDesktop, que o
+    # Hyprland não tem, e trava na inicialização; força a captura wlr.
+    settings.capture = "wlr";
     settings.global_prep_cmd = builtins.toJSON [
       {
         do = "${streamResolution} do";
