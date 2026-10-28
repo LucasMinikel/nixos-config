@@ -26,6 +26,11 @@ in
   programs.gamemode.enable = true;
   programs.gamescope.enable = true;
 
+  # vkBasalt (nitidez/SMAA pós-processamento) como camada Vulkan; só liga nos
+  # jogos lançados com ENABLE_VKBASALT=1. O 32 bits é para jogos antigos via DXVK.
+  hardware.graphics.extraPackages = [ pkgs.vkbasalt ];
+  hardware.graphics.extraPackages32 = [ pkgs.pkgsi686Linux.vkbasalt ];
+
   # DualShock 4 e DualSense não precisam de driver extra: o kernel tem
   # hid-sony/hid-playstation, e as regras de udev da Steam e do Sunshine
   # liberam hidraw/uhid (giroscópio, touchpad e a emulação no Moonlight).
