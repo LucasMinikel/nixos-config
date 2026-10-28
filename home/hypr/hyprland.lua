@@ -90,6 +90,8 @@ hl.bind(mainMod .. " + L", hl.dsp.exec_cmd("hyprlock"))
 hl.bind(mainMod .. " + CTRL + V", hl.dsp.exec_cmd(scripts .. "clipboard-menu.sh"))
 hl.bind(mainMod .. " + SHIFT + E", hl.dsp.exec_cmd(scripts .. "session-menu.sh"))
 hl.bind(mainMod .. " + J", hl.dsp.layout("togglesplit")) -- dwindle
+hl.bind(mainMod .. " + F", hl.dsp.window.float({ action = "toggle" }))
+hl.bind(mainMod .. " + C", hl.dsp.window.center())
 hl.bind("Print", hl.dsp.exec_cmd(scripts .. "screenshot-copy.sh full"))
 hl.bind(mainMod .. " + SHIFT + S", hl.dsp.exec_cmd(scripts .. "screenshot-copy.sh area"))
 

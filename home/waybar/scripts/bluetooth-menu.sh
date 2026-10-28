@@ -102,10 +102,35 @@ if [[ "$choice" == "$PAIR_LABEL" ]]; then
     new_mac="${NEWMAC_BY_LABEL[$pick]:-}"
     [[ -z "$new_mac" ]] && exit 0
 
-    bluetoothctl agent NoInputNoOutput >/dev/null 2>&1 || true
-    bluetoothctl default-agent >/dev/null 2>&1 || true
+    # O agente só existe enquanto o bluetoothctl que o registrou estiver
+    # rodando, então agente e pair vão na mesma sessão. Com KeyboardDisplay,
+    # teclados mandam um código para ser digitado neles; o código vai para uma
+    # notificação, e pedidos de confirmação (celulares) são aceitos.
+    bluetoothctl pairable on >/dev/null 2>&1 || true
+    coproc BT { timeout 90 bluetoothctl 2>&1; }
+    bt_out="${BT[0]}" bt_in="${BT[1]}" bt_pid="$BT_PID"
+    printf 'agent KeyboardDisplay\ndefault-agent\npair %s\n' "$new_mac" >&"$bt_in"
 
-    if bluetoothctl pair "$new_mac" >/dev/null 2>&1; then
+    paired=""
+    notify_id=""
+    while IFS= read -r out <&"$bt_out"; do
+        out="$(printf '%s' "$out" | sed 's/\x1b\[[0-9;]*m//g')"
+        if [[ "$out" =~ (Confirm\ passkey|Request\ confirmation|Authorize) ]]; then
+            printf 'yes\n' >&"$bt_in"
+        elif [[ "$out" =~ (Passkey|PIN\ code)[^0-9]*([0-9]{4,6}) ]]; then
+            notify_id="$(notify-send -a "Bluetooth" -p -t 60000 ${notify_id:+-r "$notify_id"} \
+                "Digite no teclado: ${BASH_REMATCH[2]}" "Depois aperte Enter no próprio teclado.")"
+        elif [[ "$out" == *"Pairing successful"* ]]; then
+            paired=1
+            break
+        elif [[ "$out" =~ (Failed\ to\ pair|not\ available) ]]; then
+            break
+        fi
+    done
+    printf 'quit\n' >&"$bt_in" 2>/dev/null || true
+    wait "$bt_pid" 2>/dev/null || true
+
+    if [[ -n "$paired" ]]; then
         bluetoothctl trust "$new_mac" >/dev/null 2>&1 || true
         if bluetoothctl connect "$new_mac" >/dev/null 2>&1; then
             notify "Pareado e conectado"
