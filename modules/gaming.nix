@@ -67,5 +67,9 @@ in
     lutris
     bottles
     mangohud
+
+    # Emulador de Nintendo Switch; chaves, firmware e jogos ficam em
+    # /mnt/HD-A/Games/switch.
+    ryubing
   ];
 }
