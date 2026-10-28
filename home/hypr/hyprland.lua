@@ -79,6 +79,10 @@ end)
 -- os teclados ABNT2 seguem o layout global acima.
 hl.device({ name = "keyboard-k380-keyboard", kb_layout = "us", kb_variant = "" })
 
+-- Mouse virtual do Sunshine: o movimento já chega acelerado pelo cliente do
+-- Moonlight, então aqui ele não ganha uma segunda aceleração.
+hl.device({ name = "libvirtualhid-mouse", accel_profile = "flat" })
+
 -- Window rules
 hl.window_rule({
     name  = "suppress-maximize-events",
