@@ -70,6 +70,10 @@ hl.on("hyprland.start", function()
     hl.exec_cmd(home .. "/.config/hypr/scripts/wallpaper.sh")
 end)
 
+-- O Logitech K380 tem teclas em inglês: US sem teclas mortas só para ele,
+-- os teclados ABNT2 seguem o layout global acima.
+hl.device({ name = "keyboard-k380-keyboard", kb_layout = "us", kb_variant = "" })
+
 -- Window rules
 hl.window_rule({
     name  = "suppress-maximize-events",
