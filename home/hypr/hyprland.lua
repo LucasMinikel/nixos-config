@@ -32,6 +32,11 @@ hl.config({
         rounding = 8,
         rounding_power = 2,
     },
+    -- Os monitores são SDR; o gerenciamento de cor só levantava o preto do
+    -- vídeo do Moonlight (preto pálido) e da captura do Sunshine.
+    render = {
+        cm_enabled = false,
+    },
     input = {
         kb_layout = "br",
         kb_variant = "nodeadkeys",
