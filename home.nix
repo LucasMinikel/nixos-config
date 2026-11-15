@@ -206,6 +206,17 @@ in
       fi
     '';
     initContent = ''
+      # Uma conta do Claude Code por diretório de config, sem logout/login.
+      # A conta "default" continua em ~/.claude. Uso: claude-as <nome> [args]
+      claude-as() {
+        if [ -z "$1" ]; then
+          echo "uso: claude-as <nome-da-conta> [args do claude]" >&2
+          return 1
+        fi
+        local name="$1"; shift
+        CLAUDE_CONFIG_DIR="$HOME/.claude-accounts/$name" command claude "$@"
+      }
+
       autoload -Uz colors vcs_info
       colors
 

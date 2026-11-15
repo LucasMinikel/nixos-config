@@ -3,6 +3,7 @@
 {
   imports = [
     ./modules/packages.nix
+    ./modules/claude-usage.nix
   ];
 
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
