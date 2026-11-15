@@ -14,6 +14,14 @@
       sha256 = "sha256-OSBImlEJz/V4aho5LCUndAj/Irx5bV7bnBamDloXGPA=";
     };
   };
+  cliproxyapi = {
+    pname = "cliproxyapi";
+    version = "8.0.53";
+    src = fetchurl {
+      url = "https://github.com/router-for-me/CLIProxyAPI/releases/download/v8.0.53/CLIProxyAPI_8.0.53_linux_amd64_no-plugin.tar.gz";
+      sha256 = "sha256-CiL20jQdpb6jDL9fN2+ceLo9DR6NAOJ+REHjR3O9PvE=";
+    };
+  };
   codex = {
     pname = "codex";
     version = "0.160.0";
@@ -36,6 +44,14 @@
     src = fetchurl {
       url = "https://github.com/getpaseo/paseo/releases/download/v0.10.3/Paseo-0.10.3-amd64.deb";
       sha256 = "sha256-Sk+nTG1VJDUyxXMXxLn/sm4nSXFK9OT5vffOiVCGFwI=";
+    };
+  };
+  t3code = {
+    pname = "t3code";
+    version = "0.1.7-nightly.20261103.4119";
+    src = fetchurl {
+      url = "https://github.com/pingdotgg/t3code/releases/download/v0.1.7-nightly.20261103.4119/T3-Code-0.1.7-nightly.20261103.4119-amd64.deb";
+      sha256 = "sha256-582O+sWZoUGz6JzLvKTPwv1XH2nwqqFJB9kDXLB2zn0=";
     };
   };
 }

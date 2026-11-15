@@ -152,6 +152,38 @@ in
     };
   };
 
+  # CLIProxyAPI só escuta em 127.0.0.1 e não inicia sozinho:
+  #   systemctl --user start cliproxyapi
+  # O config.yaml (com a chave de API) é gerado uma vez em ~/.config, fora do
+  # Nix store, que é legível por qualquer usuário.
+  systemd.user.services.cliproxyapi = {
+    Unit.Description = "CLIProxyAPI (proxy local de modelos)";
+    Service = {
+      ExecStartPre = "${pkgs.writeShellScript "cliproxyapi-config" ''
+        set -eu
+        dir="$HOME/.config/cliproxyapi"
+        mkdir -p "$dir"
+        chmod 700 "$dir"
+        if [ ! -f "$dir/config.yaml" ]; then
+          key="sk-local-$(${pkgs.coreutils}/bin/head -c 24 /dev/urandom | ${pkgs.coreutils}/bin/base64 | tr -dc 'A-Za-z0-9')"
+          umask 077
+          cat > "$dir/config.yaml" <<EOF
+        server:
+          host: "127.0.0.1"
+          port: 8317
+        management:
+          allow-remote: false
+        access:
+          api-keys:
+            - "$key"
+        EOF
+        fi
+      ''}";
+      ExecStart = "/run/current-system/sw/bin/cli-proxy-api -config %h/.config/cliproxyapi/config.yaml";
+      Restart = "on-failure";
+    };
+  };
+
   xdg.mimeApps = {
     enable = true;
     defaultApplications = {
