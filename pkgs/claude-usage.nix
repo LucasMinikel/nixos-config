@@ -62,6 +62,37 @@ let
         find "''${dirs[@]}" -path '*/projects/*' -name '*.jsonl' -print0
       }
 
+      # Medianas por sessão num período, para comparar antes/depois de uma
+      # mudança: --metrics <desde AAAA-MM-DD> [até AAAA-MM-DD] [regex-de-cwd]
+      if [ "$mode" = "--metrics" ]; then
+        since="''${2:?uso: --metrics <desde> [até] [filtro]}"
+        until="''${3:-9999-12-31}"
+        filter="''${4:-}"
+        transcripts | xargs -0 cat | jq -rn --arg since "$since" --arg until "$until" --arg f "$filter" '
+          def med: sort | if length == 0 then null
+                          elif length % 2 == 1 then .[length / 2 | floor]
+                          else (.[length / 2 - 1] + .[length / 2]) / 2 end;
+          def r1: if . == null then "-" else ((. * 10 | round) / 10) end;
+          reduce (inputs | select(.type == "assistant" and (.sessionId // "") != ""
+                                  and (.timestamp // "")[0:10] >= $since
+                                  and (.timestamp // "")[0:10] <= $until
+                                  and ((.cwd // "") | test($f)))) as $l ({};
+            ($l.message.content | if type == "array" then map(select(.type == "tool_use")) else [] end) as $t
+            | .[$l.sessionId].turns += 1
+            | .[$l.sessionId].cache += ($l.message.usage.cache_read_input_tokens // 0)
+            | .[$l.sessionId].calls += ($t | length)
+            | .[$l.sessionId].bash += ([$t[] | select(.name == "Bash")] | length)
+            | .[$l.sessionId].reads += ([$t[] | select(.name == "Read")] | length))
+          | [.[]] as $s
+          | "periodo: \($since) a \($until)   filtro: \(if $f == "" then "(nenhum)" else $f end)",
+            "sessoes: \($s | length)",
+            "mediana por sessao:  turnos \($s | map(.turns) | med | r1)   calls \($s | map(.calls) | med | r1)   bash \($s | map(.bash // 0) | med | r1)   reads \($s | map(.reads // 0) | med | r1)",
+            "mediana de cache lido por turno (mil tokens, ~tamanho do contexto): \($s | map(.cache / .turns / 1000) | med | r1)",
+            "total de cache lido (M): \($s | map(.cache) | add // 0 | . / 1000000 | r1)"
+        '
+        exit 0
+      fi
+
       if [ "$mode" = "--tokens" ]; then
         transcripts | xargs -0 cat | jq -rn '
           def m: ((. / 1000000 * 10 | round) / 10);

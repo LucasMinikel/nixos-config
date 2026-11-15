@@ -64,6 +64,7 @@ in
   # Papéis de parede vêm do repo via Nix store, sem depender de ~/nixos-config existir
   home.file.".config/hypr/wallpapers".source = ./wallpapers;
   home.file.".config/hypr/hypridle.conf".source = ./home/hypr/hypridle.conf;
+  home.file.".claude/skills/progresso/SKILL.md".source = ./home/claude/skills/progresso/SKILL.md;
   home.file.".config/hypr/hyprlock.conf".source = ./home/hypr/hyprlock.conf;
   home.file.".config/mako/config".source = ./home/mako/config;
   home.file.".config/waybar/config".source = ./home/waybar/config.jsonc;
