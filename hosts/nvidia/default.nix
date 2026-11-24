@@ -29,6 +29,10 @@
     };
   };
 
+  # O T3 Code do generic baixa aqui um t3 pré-compilado (glibc genérico)
+  # para o ambiente SSH; sem nix-ld ele não executa no NixOS.
+  programs.nix-ld.enable = true;
+
   # x-gvfs-show põe cada disco uma vez na lateral do Thunar.
   fileSystems."/mnt/HD-A" = {
     device = "/dev/disk/by-label/HD-A";
