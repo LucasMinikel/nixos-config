@@ -1,8 +1,3 @@
-[paseo]
-src.github = "getpaseo/paseo"
-src.prefix = "v"
-fetch.url = "https://github.com/getpaseo/paseo/releases/download/v$ver/Paseo-$ver-amd64.deb"
-
 [codex]
 src.webpage = "https://registry.npmjs.org/@openai/codex/latest"
 src.regex = '"version":"([\d.]+)"'

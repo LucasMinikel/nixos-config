@@ -230,74 +230,6 @@ let
       };
     };
 
-  paseo =
-    let
-      version = sources.paseo.version;
-      runtimeDependencies = electronRuntimeDependencies;
-    in
-    pkgs.stdenvNoCC.mkDerivation {
-      pname = "paseo";
-      inherit version;
-
-      src = sources.paseo.src;
-
-      nativeBuildInputs = with pkgs; [
-        autoPatchelfHook
-        dpkg
-        makeWrapper
-      ];
-
-      buildInputs = runtimeDependencies;
-
-      dontConfigure = true;
-      dontBuild = true;
-
-      unpackPhase = ''
-        runHook preUnpack
-        dpkg-deb --fsys-tarfile "$src" | tar --no-same-owner --no-same-permissions -xf -
-        runHook postUnpack
-      '';
-
-      installPhase = ''
-        runHook preInstall
-
-        mkdir -p "$out/bin" "$out/lib" "$out/share"
-        cp -r opt/Paseo "$out/lib/"
-
-        if [ -d usr/share/applications ]; then
-          cp -r usr/share/applications "$out/share/"
-        fi
-
-        if [ -d usr/share/icons ]; then
-          cp -r usr/share/icons "$out/share/"
-        fi
-
-        substituteInPlace "$out/share/applications/Paseo.desktop" \
-          --replace-fail "/opt/Paseo/Paseo" "$out/bin/paseo"
-
-        makeWrapper "$out/lib/Paseo/Paseo" "$out/bin/paseo" \
-          --add-flags --no-sandbox \
-          --prefix LD_LIBRARY_PATH : ${lib.makeLibraryPath runtimeDependencies}:$out/lib/Paseo \
-          --prefix PATH : ${lib.makeBinPath [
-            pkgs.glib
-            pkgs.gnome-keyring
-            pkgs.trash-cli
-            pkgs.xdg-utils
-          ]} \
-          --set-default NIXOS_OZONE_WL 1
-
-        runHook postInstall
-      '';
-
-      meta = {
-        description = "Unified interface to orchestrate and manage AI coding agents";
-        homepage = "https://paseo.sh/";
-        license = lib.licenses.mit;
-        mainProgram = "paseo";
-        platforms = [ "x86_64-linux" ];
-      };
-    };
-
   claude-code =
     let
       version = sources.claude-code.version;
@@ -411,7 +343,6 @@ in
     google-chrome
     moonlight-qt
     navicat-mysql
-    paseo
     t3code
     cliproxyapi
     claude-code

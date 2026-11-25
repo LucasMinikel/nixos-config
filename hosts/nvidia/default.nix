@@ -16,8 +16,7 @@
 
   networking.hostName = "nvidia";
 
-  # O Paseo do generic usa este host via SSH (ssh -W até o daemon em
-  # 127.0.0.1:6767), então o daemon em si continua fechado para a rede.
+  # O T3 Code do generic usa este host como ambiente SSH.
   services.openssh = {
     enable = true;
     openFirewall = true;

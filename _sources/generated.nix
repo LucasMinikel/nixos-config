@@ -38,14 +38,6 @@
       sha256 = "sha256-N6QdYcM5kYK4xye3cJDMehVmvYSdDwkHCgu8b+xMWNw=";
     };
   };
-  paseo = {
-    pname = "paseo";
-    version = "0.10.3";
-    src = fetchurl {
-      url = "https://github.com/getpaseo/paseo/releases/download/v0.10.3/Paseo-0.10.3-amd64.deb";
-      sha256 = "sha256-Sk+nTG1VJDUyxXMXxLn/sm4nSXFK9OT5vffOiVCGFwI=";
-    };
-  };
   t3code = {
     pname = "t3code";
     version = "0.1.7-nightly.20261103.4119";

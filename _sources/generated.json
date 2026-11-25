@@ -59,22 +59,6 @@
         },
         "version": "0.160.0"
     },
-    "paseo": {
-        "cargoLock": null,
-        "date": null,
-        "extract": null,
-        "name": "paseo",
-        "passthru": null,
-        "pinned": false,
-        "src": {
-            "name": null,
-            "sha256": "sha256-Sk+nTG1VJDUyxXMXxLn/sm4nSXFK9OT5vffOiVCGFwI=",
-            "type": "url",
-            "url": "https://github.com/getpaseo/paseo/releases/download/v0.10.3/Paseo-0.10.3-amd64.deb"
-        },
-        "version": "0.10.3"
-    },
-    "t3code": {
         "cargoLock": null,
         "date": null,
         "extract": null,
